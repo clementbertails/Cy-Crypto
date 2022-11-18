@@ -8,7 +8,8 @@ services:
         environment:
             MARIADB_ROOT_PASSWORD: example
         networks:
-            - backend
+            - database
+            - jee_website_project
 
     adminer:
         container_name: jee_project_adminer
@@ -21,19 +22,19 @@ services:
         environment:
             - ADMIN_DEFAULT_SERVER=mariadb
         networks:
-            - backend
+            - database
 
-    # jee_project:
-    #     container_name: jee_project
-    #     build: 
-    #         context: .
-    #         dockerfile: jee_project.Dockerfile
-    #     restart: always
-    #     ports:
-    #         - "8080:2480"
-    #     networks:
-    #         - backend
+    jee_project:
+        container_name: jee_project
+        build: ./jee_website_project
+        restart: always
+        ports:
+            - "8080:2480"
+        networks:
+            - jee_website_project
 
 networks:
-    backend:
+    jee_website_project:
+        driver: bridge
+    database:
         driver: bridge
