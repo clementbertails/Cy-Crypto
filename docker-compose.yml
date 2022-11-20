@@ -2,39 +2,41 @@ version: '3.9'
 
 services:
     mariadb:
-        container_name: jee_project_mariadb
+        container_name: cy_crypto_mariadb
         image: mariadb:10.10.1-rc
         restart: always
         environment:
-            MARIADB_ROOT_PASSWORD: example
+            MYSQL_ROOT_PASSWORD: rootpassword
+            MYSQL_USER: cytech
+            MYSQL_PASSWORD: cytechpassword
+            MYSQL_DATABASE: cycrypto
         networks:
             - database
-            - jee_website_project
+            - cy_crypto
 
     adminer:
-        container_name: jee_project_adminer
+        container_name: cy_crypto_adminer
         image: adminer:4.8.1
         restart: always
         ports:
-            - "8080:2580"
+            - "2580:8080"
         volumes:
-            - ./docker/adminer/adminer.css:/var/www/html/adminer.css:ro
-        environment:
-            - ADMIN_DEFAULT_SERVER=mariadb
+            - ./adminer/adminer.css:/var/www/html/adminer.css:ro
         networks:
             - database
 
-    jee_project:
-        container_name: jee_project
-        build: ./jee_website_project
+    cy_crypto:
+        container_name: cy_crypto_website
+        build: ./cy_crypto
         restart: always
         ports:
-            - "8080:2480"
+            - "2480:8080"
         networks:
-            - jee_website_project
+            - cy_crypto
+        command: mvn spring-boot:run
 
 networks:
-    jee_website_project:
+    cy_crypto:
         driver: bridge
     database:
         driver: bridge

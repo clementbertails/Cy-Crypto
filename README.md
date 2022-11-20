@@ -1,4 +1,5 @@
-# projet_jee
+# Cy-Crypto
+
 A website using jee and mariadb
 
 ## JEE

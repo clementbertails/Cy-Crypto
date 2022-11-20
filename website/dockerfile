@@ -1,0 +1,12 @@
+FROM fedora:37
+LABEL Clément Bertails <clement.bertails@gmail.com>
+
+RUN dnf update -y\
+  && dnf upgrade -y\
+  && dnf install -y maven-1:3.8.5-3.fc37
+COPY ./src /etc/cy_crypto/src
+COPY pom.xml /etc/cy_crypto
+WORKDIR /etc/cy_crypto
+# EXPOSE 8080
+
+# CMD mvn spring-boot:run
