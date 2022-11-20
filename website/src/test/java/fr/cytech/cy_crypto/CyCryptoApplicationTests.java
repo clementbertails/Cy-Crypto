@@ -1,10 +1,10 @@
-package fr.bertailslasgleizes.cy_crypto;
+package fr.cytech.cy_crypto;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CyCryptoTest {
+class CyCryptoApplicationTests {
 
 	@Test
 	void contextLoads() {
