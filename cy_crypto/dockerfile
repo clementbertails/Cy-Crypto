@@ -7,6 +7,3 @@ RUN dnf update -y\
 COPY ./src /etc/cy_crypto/src
 COPY pom.xml /etc/cy_crypto
 WORKDIR /etc/cy_crypto
-# EXPOSE 8080
-
-# CMD mvn spring-boot:run
