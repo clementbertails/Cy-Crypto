@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:42069/cycrypto
+    username: cytech
+    password: cytechpassword
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDB103Dialect
+  mvc:
+    view:
+      prefix: /WEB-INF/
+      suffix: .jsp

@@ -10,6 +10,8 @@ services:
             MYSQL_USER: cytech
             MYSQL_PASSWORD: cytechpassword
             MYSQL_DATABASE: cycrypto
+        ports:
+            - 42069:3306
         networks:
             - database
             - cy_crypto
