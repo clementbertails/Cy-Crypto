@@ -1,26 +1,29 @@
-target/
-!.mvn/wrapper/maven-wrapper.jar
+### Maven ###
+/target
 !**/src/main/**/target/
 !**/src/test/**/target/
+.mvn/
+!.mvn/wrapper/maven-wrapper.jar
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+### Binaries ###
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.war
+*.ear
+*.sar
+*.class
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
+### IDE ###
 .vscode/
+.settings/
+.classpath
+.project
+
+### OS ###
+.DS_Store

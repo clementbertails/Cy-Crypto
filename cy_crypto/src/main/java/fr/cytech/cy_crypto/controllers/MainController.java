@@ -25,8 +25,8 @@ public class MainController {
         return("wiew/register");
     }
 
-    // @GetMapping("/")
-    // public String handleError(HttpServletRequest request) {
-    //     return ("404");
-    // }
+        // @GetMapping("/")
+        // public String handleError(HttpServletRequest request) {
+        //     return ("404");
+        // }
 }
