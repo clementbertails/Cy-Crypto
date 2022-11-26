@@ -5,7 +5,7 @@
     <body>
         <c:import url="/WEB-INF/include/header.jsp"/>
 
-        <h1>Welcome here i m a dead man while coding </h1>
+        <h1>Welcome <c:out value="${sessionScope.user.username}"/></h1>
 
         <c:import url="/WEB-INF/include/footer.jsp"/>
     </body>

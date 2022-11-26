@@ -23,29 +23,42 @@ public class MainController {
     
     @GetMapping(value="/")
     public String index(){
-        return ("index");
+        return "index";
     }
 
     @GetMapping(value="/signin")
-    public String getsignin(){
-        return("signin");
+    public String getsignin(HttpServletRequest request){
+        if (request.getSession().getAttribute("user") != null) {
+            return "redirect:/user";
+        }
+        return "signin";
     }
 
     @PostMapping(value="/signin")
-    public String signin(){
-        // TODO check on db the informations
-        //      redirect to home page
-        //      set Session
-        return null;
+    public String signin(@RequestParam String login,
+                         @RequestParam String password,
+                         HttpServletRequest request,
+                         Model model){
+        UserModel user = userService.get(login);
+        if (user == null || !BCrypt.checkpw(password, user.getPassword())) {
+            model.addAttribute("cannotSignin", true);
+            return "signin";
+        } else {
+            request.getSession().setAttribute("user", user);
+        }
+        return "redirect:/user";
     }
 
     @GetMapping(value="/register")
-    public String register(){
-        return("register");
+    public String register(HttpServletRequest request){
+        if (request.getSession().getAttribute("user") != null) {
+            return "redirect:/user";
+        }
+        return "register";
     }
 
     public boolean existUser(String username, String email) {
-        return userService.get(username) == null && userService.get(email) == null;
+        return userService.get(username) != null && userService.get(email) != null;
     }
 
     @PostMapping(value="/register")
@@ -55,14 +68,14 @@ public class MainController {
                                @RequestParam String email,
                                @RequestParam String password,
                                @RequestParam String passwordConf,
+                               HttpServletRequest request,
                                Model model) {
-        if (password.equals(passwordConf)) {
-            model.addAttribute("diffPassword", false);
-            if (existUser(username, email)) {
-                // user already exist
-                model.addAttribute("existUser", true);
+        if (!existUser(username, email)) {
+            if (!password.equals(passwordConf)) {
+                model.addAttribute("diffPassword", true);
+                return "register";
             } else {
-                model.addAttribute("existUser", false);
+                // model.addAttribute("existUser", false);
                 UserModel user = new UserModel();
                 user.setName(name);
                 user.setLastName(lastName);
@@ -71,9 +84,12 @@ public class MainController {
                 user.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
                 user.setRole(Role.USER);
                 userService.save(user);
+                request.getSession().setAttribute("user", user);
             }
         } else {
-            model.addAttribute("diffPassword", true);
+            // user already exist
+            model.addAttribute("existUser", true);
+            return "register";
         }
         return "redirect:/";
     }
@@ -88,6 +104,6 @@ public class MainController {
 
     @GetMapping("/404")
     public String error404() {
-        return ("404");
+        return "404";
     }
 }

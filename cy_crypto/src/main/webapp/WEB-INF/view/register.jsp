@@ -1,8 +1,9 @@
+<%@ include file="/WEB-INF/include/jstl.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
-    <jsp:include page="../include/head.jsp"/>
+    <c:import url="/WEB-INF/include/head.jsp"/>
     <body>
-        <jsp:include page="../include/header.jsp"/>
+        <c:import url="/WEB-INF/include/header.jsp"/>
 
         <form action="/register" method="post">
             <label for="name">Name</label>
@@ -26,6 +27,15 @@
             <input type="submit" id="connectionSubmit" value="Connect" onclick="test()">
         </form>
 
-        <jsp:include page="../include/footer.jsp"/>
+        <c:if test="${existUser}">
+            <h1>User already exist !</h1>
+            <!-- pseudo ou adresse mail deja prise -->
+            <a href="signin">Sign In</a>
+        </c:if>
+        <c:if test="${diffPassword}">
+            <h1>Password and confirmation are differents !</h1>
+        </c:if>
+
+        <c:import url="/WEB-INF/include/footer.jsp"/>
     </body>
 </html>
