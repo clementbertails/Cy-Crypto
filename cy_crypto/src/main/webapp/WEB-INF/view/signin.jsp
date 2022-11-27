@@ -5,7 +5,7 @@
     <body>
         <c:import url="/WEB-INF/include/header.jsp"/>
 
-        <form action="/signin" method="post">
+        <form action="signin" method="post">
             <label for="login"></label>
             <input type="text" name="login" id="login" placeholder="Login" required>
 

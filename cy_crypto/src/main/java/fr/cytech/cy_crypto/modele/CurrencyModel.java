@@ -5,12 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity(name = "currencies")
-@Table(name = "currencies")
-public class Currencies {
+@Entity(name = "currency")
+@Table(name = "currency")
+public class CurrencyModel {
     
     @Id
-    @Column(name = "id")
+    @Column(name = "id", unique = true)
     private String id;
 
     @Column(name = "name")

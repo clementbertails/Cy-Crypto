@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import fr.cytech.cy_crypto.modele.UserModel;
+import fr.cytech.cy_crypto.modele.Role;
 
 @Repository
 public class UserDao implements DAO<UserModel> {
@@ -59,5 +60,22 @@ public class UserDao implements DAO<UserModel> {
     @Override
     public void delete(UserModel t) {
         entityManager.remove(t);
+    }
+
+    public List<UserModel> getByRole(Role role){
+        TypedQuery<UserModel> query;
+        switch (role) {
+            case USER:
+                query = entityManager.createQuery("FROM user WHERE role = 0", UserModel.class);
+                break;
+        
+            case ADMIN:
+                query = entityManager.createQuery("FROM user WHERE role = 1", UserModel.class);
+                break;
+            
+            default:
+                return null;
+        }
+        return query.getResultList();
     }
 }
