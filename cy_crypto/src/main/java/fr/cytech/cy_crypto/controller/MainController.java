@@ -62,37 +62,41 @@ public class MainController {
 
     @PostMapping("signup")
     public String postSignup(@RequestParam String name,
-                               @RequestParam String lastName,
-                               @RequestParam String username,
-                               @RequestParam String email,
-                               @RequestParam String password,
-                               @RequestParam String passwordConf,
-                               HttpServletRequest request,
-                               RedirectAttributes rAttributes) {
+                             @RequestParam String lastName,
+                             @RequestParam String username,
+                             @RequestParam String email,
+                             @RequestParam String password,
+                             @RequestParam String passwordConf,
+                             HttpServletRequest request, RedirectAttributes rAttributes) {
         if (!userService.existUser(username, email)) {
-            if (!password.equals(passwordConf)) {
-                rAttributes.addAttribute("diffPassword", true);
-                return "redirect:/signup";
-            } else {
-                if (userService.checkedPassword(password)) {
-                    if (userService.checkedEmail(email)) {
-                        UserModel user = new UserModel();
-                        user.setName(name);
-                        user.setLastName(lastName);
-                        user.setUsername(username);
-                        user.setEmail(email);
-                        user.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
-                        user.setRole(Role.USER);
-                        userService.save(user);
-                        request.getSession().setAttribute("user", user);
+            if (userService.allSignupParams()) {
+                if (!password.equals(passwordConf)) {
+                    rAttributes.addAttribute("diffPassword", true);
+                    return "redirect:/signup";
+                } else {
+                    if (userService.checkedPassword(password)) {
+                        if (userService.checkedEmail(email)) {
+                            UserModel user = new UserModel();
+                            user.setName(name);
+                            user.setLastName(lastName);
+                            user.setUsername(username);
+                            user.setEmail(email);
+                            user.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
+                            user.setRole(Role.USER);
+                            userService.save(user);
+                            request.getSession().setAttribute("user", user);
+                        } else {
+                            rAttributes.addAttribute("incorrectEmail", true);
+                            return "redirect:/signup";
+                        }
                     } else {
-                        rAttributes.addAttribute("incorrectEmail", true);
+                        rAttributes.addAttribute("weakPassword", true);
                         return "redirect:/signup";
                     }
-                } else {
-                    rAttributes.addAttribute("weakPassword", true);
-                    return "redirect:/signup";
                 }
+            } else {
+                rAttributes.addAttribute("invalidParams", true);
+                return "redirect:/signup";
             }
         } else {
             // user already exist

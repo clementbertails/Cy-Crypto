@@ -40,8 +40,13 @@ public class UserController {
     }
 
     @PostMapping("/favourites")
-    public String addFavourite(HttpServletRequest request, Model model) {
-        return "favourites";
+    public String addFavourite(HttpServletRequest request, RedirectAttributes rAttributes){
+        if (request.getSession().getAttribute("user") == null) {
+            rAttributes.addAttribute("notLogged", true);
+            return "redirect:/signin";
+        } else {
+            return "redirect:/home/favourites";
+        }
     }
 
     @GetMapping("/mail")
@@ -50,15 +55,18 @@ public class UserController {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
         } else {
-            return "mailbox";   
+            return "mailbox";
         }
     }
 
     @PostMapping("/mail")
-    public String sendMail(HttpServletRequest request,
-                           Model model){
-        return "mail";
-
+    public String sendMail(HttpServletRequest request, RedirectAttributes rAttributes){
+        if (request.getSession().getAttribute("user") == null) {
+            rAttributes.addAttribute("notLogged", true);
+            return "redirect:/signin";
+        } else {
+            return "redirect:/user/mailbox";
+        }
     }
 
     @GetMapping("/manage")

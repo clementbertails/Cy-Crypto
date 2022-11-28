@@ -46,6 +46,9 @@
         <c:if test="${param.incorrectEmail}">
             <h1>Email not respecting pattern !</h1>
         </c:if>
+        <c:if test="${param.invalidParams}">
+            <h1>Invalid parameters sends to server !</h1>
+        </c:if>
 
         <c:import url="/WEB-INF/include/footer.jsp"/>
     </body>
