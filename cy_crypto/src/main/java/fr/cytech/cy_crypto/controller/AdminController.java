@@ -23,14 +23,16 @@ public class AdminController    {
     
     @GetMapping()
     public String getAdminIndex(HttpServletRequest request, Model model){
-        return adminService.isLogged(request, model, "admin_pannel");
+        // return adminService.isLogged(request, model, "admin_pannel");
+        return null;
     }
 
     //TODO management Security
 
     @GetMapping("/manage")
     public String manage_users(HttpServletRequest request, Model model){
-        return adminService.isLogged(request, model, "manage_users");
+        // return adminService.isLogged(request, model, "manage_users");
+        return null;
     }
 
     @PostMapping("/addAdmin")

@@ -24,6 +24,10 @@
             <h3>Don't have account ?</h3>
             <a href="signup">Sign Up</a>
         </c:if>
+        
+        <c:if test="${param.invalidParams}">
+            <h1>Invalid parameters sends to server !</h1>
+        </c:if>
 
         <c:import url="/WEB-INF/include/footer.jsp"/>
     </body>

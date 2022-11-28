@@ -58,4 +58,8 @@ public class UserService {
     public boolean allSignupParams(){
         return true;
     }
+
+    public boolean allSigninParams(){
+        return true;
+    }
 }

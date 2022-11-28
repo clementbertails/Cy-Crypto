@@ -1,5 +1,7 @@
 package fr.cytech.cy_crypto.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -38,17 +40,19 @@ public class MainController {
     }
 
     @PostMapping("signin")
-    public String postSignin(@RequestParam String login,
-                             @RequestParam String password,
-                             HttpServletRequest request,
-                             RedirectAttributes redirect){
-        UserModel user = userService.get(login);
-        if (user == null || !BCrypt.checkpw(password, user.getPassword())) {
-            redirect.addAttribute("cannotSignin", true);
-            return "redirect:/signin";
+    public String postSignin(@RequestParam Map<String, String> allParams, HttpServletRequest request, RedirectAttributes rAttributes){
+        if (userService.allSigninParams()) {
+            UserModel user = userService.get(allParams.get("login"));
+            if (user == null || !BCrypt.checkpw(allParams.get("password"), user.getPassword())) {
+                rAttributes.addAttribute("cannotSignin", true);
+                return "redirect:/signin";
+            } else {
+                request.getSession().setAttribute("user", user);
+                return "redirect:/home";
+            }
         } else {
-            request.getSession().setAttribute("user", user);
-            return "redirect:/home";
+            rAttributes.addAttribute("invalidParams", true);
+            return "redirect:/signin";
         }
     }
 
@@ -61,27 +65,21 @@ public class MainController {
     }
 
     @PostMapping("signup")
-    public String postSignup(@RequestParam String name,
-                             @RequestParam String lastName,
-                             @RequestParam String username,
-                             @RequestParam String email,
-                             @RequestParam String password,
-                             @RequestParam String passwordConf,
-                             HttpServletRequest request, RedirectAttributes rAttributes) {
-        if (!userService.existUser(username, email)) {
+    public String postSignup(@RequestParam Map<String, String> allParams, HttpServletRequest request, RedirectAttributes rAttributes) {
+        if (!userService.existUser(allParams.get("username"), allParams.get("email"))) {
             if (userService.allSignupParams()) {
-                if (!password.equals(passwordConf)) {
+                if (!allParams.get("password").equals(allParams.get("passwordConf"))) {
                     rAttributes.addAttribute("diffPassword", true);
                     return "redirect:/signup";
                 } else {
-                    if (userService.checkedPassword(password)) {
-                        if (userService.checkedEmail(email)) {
+                    if (userService.checkedPassword(allParams.get("password"))) {
+                        if (userService.checkedEmail(allParams.get("email"))) {
                             UserModel user = new UserModel();
-                            user.setName(name);
-                            user.setLastName(lastName);
-                            user.setUsername(username);
-                            user.setEmail(email);
-                            user.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
+                            user.setName(allParams.get("name"));
+                            user.setLastName(allParams.get("lastName"));
+                            user.setUsername(allParams.get("username"));
+                            user.setEmail(allParams.get("email"));
+                            user.setPassword(BCrypt.hashpw(allParams.get("password"), BCrypt.gensalt()));
                             user.setRole(Role.USER);
                             userService.save(user);
                             request.getSession().setAttribute("user", user);
