@@ -29,7 +29,7 @@ public class MainController {
     }
 
     @GetMapping("signin")
-    public String getsignin(HttpServletRequest request){
+    public String getsignin(HttpServletRequest request, Model model){
         if (request.getSession().getAttribute("user") != null) {
             
             return "redirect:/home";
@@ -45,7 +45,7 @@ public class MainController {
         UserModel user = userService.get(login);
         if (user == null || !BCrypt.checkpw(password, user.getPassword())) {
             model.addAttribute("cannotSignin", true);
-            return "signin";
+            return "redirect:/signin";
         } else {
             request.getSession().setAttribute("user", user);
         }

@@ -7,10 +7,6 @@
 
         <h1>Welcome <c:out value="${sessionScope.user.username}"/></h1>
 
-        <c:if test="${test}">
-            YUYUYUYYUUY
-        </c:if>
-
         <c:import url="/WEB-INF/include/footer.jsp"/>
     </body>
 </html>

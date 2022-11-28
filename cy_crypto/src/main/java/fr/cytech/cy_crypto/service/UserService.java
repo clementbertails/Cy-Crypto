@@ -48,7 +48,7 @@ public class UserService {
     }
 
     public boolean checkedPassword(String password){
-        return Pattern.matches("^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{10,}$", password);
+        return Pattern.matches("^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{10}$", password);
     }
 
     public boolean checkedEmail(String email){

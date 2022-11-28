@@ -24,7 +24,7 @@
             <label for="passwordConf">Confirm password</label>
             <input type="password" name="passwordConf" id="passwordConf" placeholder="Confirm password" required>
 
-            <input type="submit" id="connectionSubmit" value="Connect" onclick="test()">
+            <input type="submit" id="connectionSubmit" value="Register">
         </form>
 
         <c:if test="${existUser}">
