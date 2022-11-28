@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fr.cytech.cy_crypto.service.UserService;
 
@@ -19,15 +20,23 @@ public class UserController {
     private UserService userService;
 
     @GetMapping()
-    public String userHome(HttpServletRequest request,
-                           Model model){
-        return userService.isLogged(request, model, "user_home");
+    public String userHome(HttpServletRequest request, RedirectAttributes rAttributes){
+        if (request.getSession().getAttribute("user") == null) {
+            rAttributes.addAttribute("notLogged", true);
+            return "redirect:/signin";
+        } else {
+            return "user_home";
+        }
     }
 
     @GetMapping("/favourites")
-    public String userFavourites(HttpServletRequest request,
-                                 Model model){
-        return userService.isLogged(request, model, "favourite_currency");
+    public String userFavourites(HttpServletRequest request, RedirectAttributes rAttributes){
+        if (request.getSession().getAttribute("user") == null) {
+            rAttributes.addAttribute("notLogged", true);
+            return "redirect:/signin";
+        } else {
+            return "user_home";
+        }
     }
 
     @PostMapping("/favourites")
@@ -36,20 +45,30 @@ public class UserController {
     }
 
     @GetMapping("/mail")
-    public String getMail(HttpServletRequest request,
-                          Model model){
-        return userService.isLogged(request, model, "mailbox");
+    public String getMail(HttpServletRequest request, RedirectAttributes rAttributes){
+        if (request.getSession().getAttribute("user") == null) {
+            rAttributes.addAttribute("notLogged", true);
+            return "redirect:/signin";
+        } else {
+            return "mailbox";   
+        }
     }
 
     @PostMapping("/mail")
     public String sendMail(HttpServletRequest request,
                            Model model){
         return "mail";
+
     }
 
     @GetMapping("/manage")
-    public String manageInformations(HttpServletRequest request, Model model) {
-        return userService.isLogged(request, model, "manageInformation");
+    public String manageInformations(HttpServletRequest request, RedirectAttributes rAttributes){
+        if (request.getSession().getAttribute("user") == null) {
+            rAttributes.addAttribute("notLogged", true);
+            return "redirect:/signin";
+        } else {
+            return "manage_info";   
+        }
     }
 
 }

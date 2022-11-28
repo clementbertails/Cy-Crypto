@@ -48,16 +48,16 @@ public class UserService {
     }
 
     public boolean checkedPassword(String password){
-        return Pattern.matches("^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{10}$", password);
+        return Pattern.matches("^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{10,}$", password);
     }
 
     public boolean checkedEmail(String email){
-        return Pattern.matches("^([a-z]+([_-\\.][a-z]+)?)+@([a-z]([_-\\.][a-z]+)?)+\\.[a-z]{2,4}$", email);
+        return Pattern.matches("^([a-z]+([_\\-\\.][a-z]+)?)+@([a-z]([_\\-\\.][a-z]+)?)+\\.[a-z]{2,4}$", email);
     }
 
     public String isLogged(HttpServletRequest request,
-                            Model model,
-                            String expectedStr){
+                           Model model,
+                           String expectedStr){
         if (request.getSession().getAttribute("user") == null) {
             model.addAttribute("notLogged", true);
             return "signin";

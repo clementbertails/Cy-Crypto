@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fr.cytech.cy_crypto.modele.Role;
 import fr.cytech.cy_crypto.modele.UserModel;
@@ -24,14 +25,13 @@ public class MainController {
     private UserService userService;
     
     @GetMapping()
-    public String getIndex(){
+    public String getIndex(Model model){
         return "index";
     }
 
     @GetMapping("signin")
-    public String getsignin(HttpServletRequest request, Model model){
+    public String getsignin(HttpServletRequest request, RedirectAttributes rAttributes){
         if (request.getSession().getAttribute("user") != null) {
-            
             return "redirect:/home";
         }
         return "signin";
@@ -41,38 +41,38 @@ public class MainController {
     public String postSignin(@RequestParam String login,
                              @RequestParam String password,
                              HttpServletRequest request,
-                             Model model){
+                             RedirectAttributes redirect){
         UserModel user = userService.get(login);
         if (user == null || !BCrypt.checkpw(password, user.getPassword())) {
-            model.addAttribute("cannotSignin", true);
+            redirect.addAttribute("cannotSignin", true);
             return "redirect:/signin";
         } else {
             request.getSession().setAttribute("user", user);
+            return "redirect:/home";
         }
-        return "redirect:/home";
     }
 
-    @GetMapping("register")
-    public String getRegister(HttpServletRequest request){
+    @GetMapping("signup")
+    public String getSignup(HttpServletRequest request, RedirectAttributes rAttributes){
         if (request.getSession().getAttribute("user") != null) {
             return "redirect:/home";
         }
-        return "register";
+        return "signup";
     }
 
-    @PostMapping("register")
-    public String postRegister(@RequestParam String name,
+    @PostMapping("signup")
+    public String postSignup(@RequestParam String name,
                                @RequestParam String lastName,
                                @RequestParam String username,
                                @RequestParam String email,
                                @RequestParam String password,
                                @RequestParam String passwordConf,
                                HttpServletRequest request,
-                               Model model) {
+                               RedirectAttributes rAttributes) {
         if (!userService.existUser(username, email)) {
             if (!password.equals(passwordConf)) {
-                model.addAttribute("diffPassword", true);
-                return "register";
+                rAttributes.addAttribute("diffPassword", true);
+                return "redirect:/signup";
             } else {
                 if (userService.checkedPassword(password)) {
                     if (userService.checkedEmail(email)) {
@@ -86,25 +86,25 @@ public class MainController {
                         userService.save(user);
                         request.getSession().setAttribute("user", user);
                     } else {
-                        model.addAttribute("incorrectEmail", true);
-                        return "register";
+                        rAttributes.addAttribute("incorrectEmail", true);
+                        return "redirect:/signup";
                     }
                 } else {
-                    model.addAttribute("weakpassword", true);
-                    return "register";
+                    rAttributes.addAttribute("weakPassword", true);
+                    return "redirect:/signup";
                 }
             }
         } else {
             // user already exist
-            model.addAttribute("existUser", true);
-            return "register";
+            rAttributes.addAttribute("existUser", true);
+            return "redirect:/signup";
         }
         return "redirect:/home";
     }
 
     @GetMapping("signout")
     public String signout(HttpServletRequest request) {
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession();
 		// destroy session
 		session.invalidate();
 		return "redirect:/";
