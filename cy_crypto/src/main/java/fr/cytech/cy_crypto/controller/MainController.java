@@ -41,7 +41,7 @@ public class MainController {
 
     @PostMapping("signin")
     public String postSignin(@RequestParam Map<String, String> allParams, HttpServletRequest request, RedirectAttributes rAttributes){
-        if (userService.allSigninParams()) {
+        if (userService.allSigninParams(allParams)) {
             UserModel user = userService.get(allParams.get("login"));
             if (user == null || !BCrypt.checkpw(allParams.get("password"), user.getPassword())) {
                 rAttributes.addAttribute("cannotSignin", true);
@@ -67,7 +67,7 @@ public class MainController {
     @PostMapping("signup")
     public String postSignup(@RequestParam Map<String, String> allParams, HttpServletRequest request, RedirectAttributes rAttributes) {
         if (!userService.existUser(allParams.get("username"), allParams.get("email"))) {
-            if (userService.allSignupParams()) {
+            if (userService.allSignupParams(allParams)) {
                 if (!allParams.get("password").equals(allParams.get("passwordConf"))) {
                     rAttributes.addAttribute("diffPassword", true);
                     return "redirect:/signup";

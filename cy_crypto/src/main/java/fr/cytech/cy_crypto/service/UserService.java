@@ -1,13 +1,11 @@
 package fr.cytech.cy_crypto.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import fr.cytech.cy_crypto.dao.UserDao;
 import fr.cytech.cy_crypto.modele.Role;
@@ -55,11 +53,45 @@ public class UserService {
         return Pattern.matches("^([a-z]+([_\\-\\.][a-z]+)?)+@([a-z]([_\\-\\.][a-z]+)?)+\\.[a-z]{2,4}$", email);
     }
 
-    public boolean allSignupParams(){
+    public boolean allSignupParams(Map<String, String> allParams){
+        for (var entry : allParams.entrySet()) {
+            switch (entry.getKey()) {
+                case "name":
+                case "lastName":
+                case "username":
+                case "email":
+                case "password":
+                case "passwordConf":
+                    if (entry.getValue() == null || entry.getValue() == "") {
+                        return false;
+                    }
+
+                case "signup":
+                    break;
+            
+                default:
+                    return false;
+            }
+        }
         return true;
     }
 
-    public boolean allSigninParams(){
+    public boolean allSigninParams(Map<String, String> allParams){
+        for (var entry : allParams.entrySet()) {
+            switch (entry.getKey()) {
+                case "login":
+                case "password":
+                    if (entry.getValue() == null || entry.getValue() == "") {
+                        return false;
+                    }
+
+                case "signin":
+                    break;
+            
+                default:
+                    return false;
+            }
+        }
         return true;
     }
 }
