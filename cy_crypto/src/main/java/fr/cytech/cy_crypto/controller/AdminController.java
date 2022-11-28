@@ -16,7 +16,7 @@ import fr.cytech.cy_crypto.service.AdminService;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class AdminController    {
 
     @Autowired
     private AdminService adminService;

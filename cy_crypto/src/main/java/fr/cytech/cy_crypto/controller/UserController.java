@@ -47,4 +47,9 @@ public class UserController {
         return "mail";
     }
 
+    @GetMapping("/manage")
+    public String manageInformations(HttpServletRequest request, Model model) {
+        return userService.isLogged(request, model, "manageInformation");
+    }
+
 }
