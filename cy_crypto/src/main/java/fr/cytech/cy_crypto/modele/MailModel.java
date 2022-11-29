@@ -34,11 +34,11 @@ public class MailModel {
     private Date date;
     
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "sender", nullable = true)
+    @JoinColumn(name = "sender")
     private UserModel sender;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "receiver", nullable = true)
+    @JoinColumn(name = "receiver")
     private Set<UserModel> receiver = new TreeSet<>();
 
     @Column(name = "title")
@@ -51,7 +51,7 @@ public class MailModel {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "previousMail", nullable = true)
+    @JoinColumn(name = "previousMail")
     private MailModel previousMail;
 
     public Integer getId() {

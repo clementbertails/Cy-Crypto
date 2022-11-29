@@ -1,11 +1,20 @@
 package fr.cytech.cy_crypto.modele;
 
+import java.util.Set;
+import java.util.TreeSet;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity(name = "user")
 @Table(name = "user")
@@ -13,7 +22,8 @@ public class UserModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "id", unique = true)
+    @NotNull
     private Integer id;
 
     @Column(name = "name")
@@ -22,17 +32,29 @@ public class UserModel {
     @Column(name = "lastName")
     private String lastName;
 
-    @Column(name = "username", unique = true, nullable = false)
+    @Column(name = "username", unique = true)
+    @NotNull
+    @NotBlank
     private String username;
 
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(name = "email", unique = true)
+    @NotNull
+    @NotBlank
     private String email;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
+    @NotNull
+    @NotBlank
     private String password;
 
-    @Column(name = "role", nullable = false)
+    @Column(name = "role")
+    @NotNull
+    @NotBlank
     private Role role;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "friend")
+    private Set<UserModel> friend = new TreeSet<>();
 
     public Integer getId() {
         return id;
@@ -90,5 +112,11 @@ public class UserModel {
         this.role = role;
     }
 
+    public Set<UserModel> getFriend() {
+        return friend;
+    }
 
+    public void setFriend(Set<UserModel> friend) {
+        this.friend = friend;
+    }
 }

@@ -24,17 +24,21 @@ public class UserController {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
         } else {
+            // Favourite list
+            // Friend list
+            // mail
+            // manage profile
             return "user_home";
         }
     }
 
-    @GetMapping("/favourites")
+    @GetMapping("/addfavourite")
     public String userFavourites(HttpServletRequest request, RedirectAttributes rAttributes){
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
         } else {
-            return "user_home";
+            return "add_favourite_currency";
         }
     }
 
@@ -44,7 +48,7 @@ public class UserController {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
         } else {
-            return "redirect:/home/favourites";
+            return "redirect:/home/addfavourite";
         }
     }
 
