@@ -6,9 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +17,6 @@ public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
-    @NotNull
     private Integer id;
 
     @Column(name = "name")
@@ -30,22 +26,14 @@ public class UserModel {
     private String lastName;
 
     @Column(name = "username", unique = true)
-    @NotNull
-    @NotBlank
     private String username;
 
     @Column(name = "email", unique = true)
-    @NotNull
-    @NotBlank
     private String email;
 
     @Column(name = "password")
-    @NotNull
-    @NotBlank
     private String password;
 
     @Column(name = "role")
-    @NotNull
-    @NotBlank
     private Role role;
 }

@@ -87,9 +87,7 @@ public class UserController {
             return "redirect:/signin";
         } else {
             UserModel user = (UserModel) request.getSession().getAttribute("user");
-            System.out.println(user.getEmail());
-            System.out.println(mailService.findAllByAttribute("receivers", user));
-            model.addAttribute("mails", mailService.findAllByAttribute("receivers", user.getId()));
+            model.addAttribute("mails", mailService.findAllByAttribute("receivers", user));
             return "mailbox";
         }
     }
