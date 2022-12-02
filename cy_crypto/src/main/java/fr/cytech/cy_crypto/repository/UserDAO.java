@@ -1,4 +1,4 @@
-package fr.cytech.cy_crypto.dao;
+package fr.cytech.cy_crypto.repository;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import fr.cytech.cy_crypto.modele.UserModel;
 import fr.cytech.cy_crypto.modele.Role;
 
 @Repository
-public class UserDao implements DAO<UserModel> {
+public class UserDAO implements DAO<UserModel> {
 
     @PersistenceContext
     EntityManager entityManager;
@@ -47,6 +47,26 @@ public class UserDao implements DAO<UserModel> {
         return query.getResultList();
     }
 
+    public List<UserModel> findAllByAttribute(String attribute, Object value) {
+        List<UserModel> result = null;
+        if (value instanceof Role) {
+            TypedQuery<UserModel> query;
+            switch ((Role) value) {
+                case USER:
+                case ADMIN:
+                    query = entityManager.createQuery("FROM user WHERE role = :value", UserModel.class);
+                    query.setParameter("value", value);
+                    result = query.getResultList();
+                    break;
+                
+                default:
+                    result = null;
+                    break;
+            }
+        }
+        return result;
+    }
+
     @Override
     public void save(UserModel t) {
         entityManager.persist(t);
@@ -60,22 +80,5 @@ public class UserDao implements DAO<UserModel> {
     @Override
     public void delete(UserModel t) {
         entityManager.remove(t);
-    }
-
-    public List<UserModel> getByRole(Role role){
-        TypedQuery<UserModel> query;
-        switch (role) {
-            case USER:
-                query = entityManager.createQuery("FROM user WHERE role = 0", UserModel.class);
-                break;
-        
-            case ADMIN:
-                query = entityManager.createQuery("FROM user WHERE role = 1", UserModel.class);
-                break;
-            
-            default:
-                return null;
-        }
-        return query.getResultList();
     }
 }

@@ -5,7 +5,7 @@
     <body>
         <c:import url="/WEB-INF/include/header.jsp"/>
 
-        <form action="signin" method="post">
+        <form action="/signin" method="post">
             <label for="login"></label>
             <input type="text" name="login" id="login" placeholder="Login" required>
 
@@ -22,7 +22,7 @@
         <c:if test="${param.cannotSignin}">
             <h1>Password or Login is incorrect !</h1>
             <h3>Don't have account ?</h3>
-            <a href="signup">Sign Up</a>
+            <a href="/signup">Sign Up</a>
         </c:if>
         
         <c:if test="${param.invalidParams}">

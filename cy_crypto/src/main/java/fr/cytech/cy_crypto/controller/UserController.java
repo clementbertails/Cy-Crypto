@@ -1,38 +1,56 @@
 package fr.cytech.cy_crypto.controller;
 
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import fr.cytech.cy_crypto.service.UserService;
+import fr.cytech.cy_crypto.modele.UserModel;
+import fr.cytech.cy_crypto.services.MailService;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private MailService mailService;
 
-    @GetMapping()
+    @GetMapping("/home")
     public String userHome(HttpServletRequest request, RedirectAttributes rAttributes){
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
         } else {
             // Favourite list
-            // Friend list
             // mail
+            // instant message with admins
             // manage profile
             return "user_home";
         }
     }
 
-    @GetMapping("/addfavourite")
+    @PostMapping("/currencies")
+    public String userCurrencies(HttpServletRequest request, RedirectAttributes rAttributes){
+        if (request.getSession().getAttribute("user") == null) {
+            rAttributes.addAttribute("notLogged", true);
+            return "redirect:/signin";
+        } else {
+            // Favourite list
+            // mail
+            // instant message with admins
+            // manage profile
+            return "currencies";
+        }
+    }
+
+    @GetMapping("/currencies/favourites")
     public String userFavourites(HttpServletRequest request, RedirectAttributes rAttributes){
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);
@@ -42,33 +60,57 @@ public class UserController {
         }
     }
 
-    @PostMapping("/favourites")
+    @PostMapping("/currencies/addfavourites")
     public String addFavourite(HttpServletRequest request, RedirectAttributes rAttributes){
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
         } else {
-            return "redirect:/home/addfavourite";
+            return "redirect:/user/home/currencies";
         }
     }
 
-    @GetMapping("/mail")
-    public String getMail(HttpServletRequest request, RedirectAttributes rAttributes){
+    @PostMapping("/currencies/removefavourites")
+    public String removeFavourite(HttpServletRequest request, RedirectAttributes rAttributes){
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
         } else {
+            return "redirect:/user/home/currencies";
+        }
+    }
+
+    @GetMapping("/mail")
+    public String getMail(HttpServletRequest request, RedirectAttributes rAttributes, Model model){
+        if (request.getSession().getAttribute("user") == null) {
+            rAttributes.addAttribute("notLogged", true);
+            return "redirect:/signin";
+        } else {
+            UserModel user = (UserModel) request.getSession().getAttribute("user");
+            System.out.println(user.getEmail());
+            System.out.println(mailService.findAllByAttribute("receivers", user));
+            model.addAttribute("mails", mailService.findAllByAttribute("receivers", user.getId()));
             return "mailbox";
         }
     }
 
-    @PostMapping("/mail")
+    @PostMapping("/sendmail")
     public String sendMail(HttpServletRequest request, RedirectAttributes rAttributes){
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
         } else {
-            return "redirect:/user/mailbox";
+            return "redirect:/user/mail";
+        }
+    }
+
+    @PostMapping("/deletemail")
+    public String deleteMail(HttpServletRequest request, RedirectAttributes rAttributes){
+        if (request.getSession().getAttribute("user") == null) {
+            rAttributes.addAttribute("notLogged", true);
+            return "redirect:/signin";
+        } else {
+            return "redirect:/user/mail";
         }
     }
 
@@ -79,6 +121,16 @@ public class UserController {
             return "redirect:/signin";
         } else {
             return "manage_info";   
+        }
+    }
+
+    @GetMapping("/saveInfos")
+    public String managePassword(@RequestParam Map<String, String> allParams, HttpServletRequest request, RedirectAttributes rAttributes){
+        if (request.getSession().getAttribute("user") == null) {
+            rAttributes.addAttribute("notLogged", true);
+            return "redirect:/signin";
+        } else {
+            return "redirect:/user/home/manage";   
         }
     }
 

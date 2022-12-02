@@ -1,4 +1,4 @@
-package fr.cytech.cy_crypto.service;
+package fr.cytech.cy_crypto.services;
 
 import java.util.List;
 import java.util.Map;
@@ -7,15 +7,15 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.cytech.cy_crypto.dao.UserDao;
 import fr.cytech.cy_crypto.modele.Role;
 import fr.cytech.cy_crypto.modele.UserModel;
+import fr.cytech.cy_crypto.repository.UserDAO;
 
 @Service
 public class UserService {
 
     @Autowired
-    private UserDao userDao;
+    private UserDAO userDao;
     
     public UserModel get(Object user) {
         return userDao.get(user);
@@ -23,6 +23,10 @@ public class UserService {
     
     public List<UserModel> getAll() {
         return userDao.getAll();
+    }
+
+    public List<UserModel> findAllByAttribute(String attribute, Role role){
+        return userDao.findAllByAttribute(attribute, role);
     }
 
     public void save(UserModel user) {
@@ -35,10 +39,6 @@ public class UserService {
 
     public void delete(UserModel user) {
         userDao.delete(user);
-    }
-
-    public List<UserModel> getByRole(Role role){
-        return userDao.getByRole(role);
     }
 
     public boolean existUser(String username, String email) {

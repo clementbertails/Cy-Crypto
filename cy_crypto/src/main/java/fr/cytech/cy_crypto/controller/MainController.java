@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fr.cytech.cy_crypto.modele.Role;
 import fr.cytech.cy_crypto.modele.UserModel;
-import fr.cytech.cy_crypto.service.UserService;
+import fr.cytech.cy_crypto.services.UserService;
 
 @Controller
 @RequestMapping("/")
@@ -25,7 +25,7 @@ public class MainController {
 
     @Autowired
     private UserService userService;
-    
+
     @GetMapping()
     public String getIndex(Model model){
         return "index";
@@ -34,7 +34,7 @@ public class MainController {
     @GetMapping("signin")
     public String getsignin(HttpServletRequest request, RedirectAttributes rAttributes){
         if (request.getSession().getAttribute("user") != null) {
-            return "redirect:/home";
+            return "redirect:/user/home";
         }
         return "signin";
     }
@@ -48,7 +48,7 @@ public class MainController {
                 return "redirect:/signin";
             } else {
                 request.getSession().setAttribute("user", user);
-                return "redirect:/home";
+                return "redirect:/user/home";
             }
         } else {
             rAttributes.addAttribute("invalidParams", true);
@@ -59,7 +59,7 @@ public class MainController {
     @GetMapping("signup")
     public String getSignup(HttpServletRequest request, RedirectAttributes rAttributes){
         if (request.getSession().getAttribute("user") != null) {
-            return "redirect:/home";
+            return "redirect:/user/home";
         }
         return "signup";
     }
@@ -101,7 +101,7 @@ public class MainController {
             rAttributes.addAttribute("existUser", true);
             return "redirect:/signup";
         }
-        return "redirect:/home";
+        return "redirect:/user/home";
     }
 
     @GetMapping("signout")

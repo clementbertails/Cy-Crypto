@@ -7,8 +7,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity(name = "currency")
 @Table(name = "currency")
+@Getter @Setter 
 public class CurrencyModel {
     
     @Id
@@ -24,29 +28,4 @@ public class CurrencyModel {
     @NotNull
     @NotBlank
     private String icon_path;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getIcon_path() {
-        return icon_path;
-    }
-
-    public void setIcon_path(String icon_path) {
-        this.icon_path = icon_path;
-    }
-
 }

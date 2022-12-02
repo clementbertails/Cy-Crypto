@@ -1,10 +1,13 @@
-package fr.cytech.cy_crypto.dao;
+package fr.cytech.cy_crypto.repository;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import fr.cytech.cy_crypto.modele.CurrencyModel;
 
-public class CurrencyDao implements DAO<CurrencyModel>{
+@Repository
+public class CurrencyDAO implements DAO<CurrencyModel>{
 
     @Override
     public CurrencyModel get(Object t) {
@@ -13,6 +16,11 @@ public class CurrencyDao implements DAO<CurrencyModel>{
 
     @Override
     public List<CurrencyModel> getAll() {
+        return null;
+    }
+
+    @Override
+    public List<CurrencyModel> findAllByAttribute(String attribute, Object value) {
         return null;
     }
 
@@ -30,5 +38,4 @@ public class CurrencyDao implements DAO<CurrencyModel>{
     public void delete(CurrencyModel t) {
         
     }
-    
 }

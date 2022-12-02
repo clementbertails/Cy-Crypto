@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.cytech.cy_crypto.modele.Role;
 import fr.cytech.cy_crypto.modele.UserModel;
-import fr.cytech.cy_crypto.service.AdminService;
+import fr.cytech.cy_crypto.services.UserService;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController    {
 
     @Autowired
-    private AdminService adminService;
+    private UserService adminService;
     
     @GetMapping()
     public String getAdminIndex(HttpServletRequest request, Model model){

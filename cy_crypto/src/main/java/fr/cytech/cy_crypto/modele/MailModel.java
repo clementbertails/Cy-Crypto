@@ -1,8 +1,8 @@
 package fr.cytech.cy_crypto.modele;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,16 +12,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity(name = "mail")
 @Table(name = "mail")
+@Getter @Setter
 public class MailModel {
 
     @Id
@@ -33,80 +38,28 @@ public class MailModel {
 	@Temporal(value=TemporalType.DATE)
     private Date date;
     
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable( name = "mail_association",
+                joinColumns = {@JoinColumn(name = "mail_id", nullable = false, updatable = false) },
+                inverseJoinColumns = { @JoinColumn(name = "receiver_id", nullable = false, updatable = false) })
+    private List<UserModel> receivers = new ArrayList<UserModel>();
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "sender")
+    @JoinTable( name = "mail_association",
+                joinColumns = {@JoinColumn(name = "mail_id", nullable = false, updatable = false) },
+                inverseJoinColumns = { @JoinColumn(name = "sender_id", nullable = false, updatable = false) })
     private UserModel sender;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "receiver")
-    private Set<UserModel> receiver = new TreeSet<>();
-
     @Column(name = "title")
-    @Size(min = 1, message = "Ce champs est requis !")
+    @Size(min = 1, message = "Field required !")
     private String title;
 
     @Column(name = "content")
     @Lob
-    @Size(min = 1, message = "Ce champs est requis !")
+    @Size(min = 1, message = "Field required !")
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "previousMail")
     private MailModel previousMail;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public UserModel getSender() {
-        return sender;
-    }
-
-    public void setSender(UserModel sender) {
-        this.sender = sender;
-    }
-
-    public Set<UserModel> getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(Set<UserModel> receiver) {
-        this.receiver = receiver;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public MailModel getPreviousMail() {
-        return previousMail;
-    }
-
-    public void setPreviousMail(MailModel previousMail) {
-        this.previousMail = previousMail;
-    }
 }

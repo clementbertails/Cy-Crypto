@@ -5,7 +5,7 @@
     <body>
         <c:import url="/WEB-INF/include/header.jsp"/>
 
-        <form action="signup" method="post">
+        <form action="/signup" method="post">
             <label for="name">Name</label>
             <input type="text" name="name" id="name" placeholder="Name" required>
 

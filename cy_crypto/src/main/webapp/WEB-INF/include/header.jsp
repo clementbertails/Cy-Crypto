@@ -25,12 +25,12 @@
               <c:choose>
                 <c:when test="${sessionScope.user == null}">
                     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="signin" class="nav-link px-2 text-secondary">Sign-in</a></li>
-                        <li><a href="signup" class="nav-link px-2 text-white">Sign-up</a></li>
+                        <li><a href="/signin" class="nav-link px-2 text-secondary">Sign-in</a></li>
+                        <li><a href="/signup" class="nav-link px-2 text-white">Sign-up</a></li>
                     </ul>
                 </c:when>
                 <c:otherwise>
-                    <a href="signout" class="nav-link px-2 text-white">Sign-out</a>
+                    <a href="/signout" class="nav-link px-2 text-white">Sign-out</a>
                 </c:otherwise>
               </c:choose>
             </div>
@@ -39,12 +39,12 @@
         <c:choose>
             <c:when test="${sessionScope.user == null}">
                 <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="register" class="nav-link px-2 link-dark">Sign-up</a></li>
-                    <li><a href="signin" class="nav-link px-2 link-dark">Login</a></li>
+                    <li><a href="/register" class="nav-link px-2 link-dark">Sign-up</a></li>
+                    <li><a href="/signin" class="nav-link px-2 link-dark">Login</a></li>
                 </ul>
             </c:when>
             <c:otherwise>
-                <a href="signout">Sign Out</a>
+                <a href="/signout">Sign Out</a>
             </c:otherwise>
         </c:choose>
     </nav>
