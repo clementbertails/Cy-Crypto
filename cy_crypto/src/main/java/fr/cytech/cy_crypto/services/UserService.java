@@ -9,40 +9,87 @@ import org.springframework.stereotype.Service;
 
 import fr.cytech.cy_crypto.modele.Role;
 import fr.cytech.cy_crypto.modele.UserModel;
-import fr.cytech.cy_crypto.repository.UserDAO;
+import fr.cytech.cy_crypto.repository.UserRepository;
 
 @Service
 public class UserService {
 
     @Autowired
-    private UserDAO userDao;
-    
-    public UserModel get(Object user) {
-        return userDao.get(user);
+    private UserRepository userRepository;
+
+    public UserModel find(Object user) {
+        try {
+            switch (user.getClass().getSimpleName()) {
+                case "Integer":
+                    return userRepository.findById((Integer) user).isPresent() ? userRepository.findById((Integer) user).get() 
+                            : null;
+
+                case "int":
+                    return userRepository.findById((int) user).isPresent() ? userRepository.findById((int) user).get() 
+                            : null;
+
+            
+                case "String":
+                    return userRepository.findByUsername((String) user).isPresent() ? userRepository.findByUsername((String) user).get()
+                            : userRepository.findByEmail((String) user).isPresent() ? userRepository.findByEmail((String) user).get()
+                            : null;
+
+                case "UserModel":
+                    return (UserModel) user;
+
+                default:
+                    return null;
+            }
+        } catch (Exception e) {
+            System.err.println("Error while getting user : " + e.getMessage());
+            return null;
+        }
     }
     
-    public List<UserModel> getAll() {
-        return userDao.getAll();
+    public List<UserModel> findAll() {
+        return userRepository.findAll();
     }
 
-    public List<UserModel> findAllByAttribute(String attribute, Role role){
-        return userDao.findAllByAttribute(attribute, role);
+    public List<UserModel> findAllByAttribute(String attribute, Object value){
+        switch (attribute) {
+            case "role":
+                try {
+                    switch (value.getClass().getSimpleName()) {
+                        case "Role":
+                            return userRepository.findAllByRole((Role) value);
+                    
+                        case "String":
+                            return userRepository.findAllByRole(Role.valueOf((String) value));
+                        
+                        case "int":
+                            return userRepository.findAllByRole(Role.values()[(int) value]);
+
+                        case "Integer":
+                            return userRepository.findAllByRole(Role.values()[(Integer) value]);
+
+                        default:
+                            break;
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error while getting users by role: " + e.getMessage());
+                    return null;
+                }
+
+            default:
+                return null;
+        }
     }
 
     public void save(UserModel user) {
-        userDao.save(user);
-    }
-    
-    public void update(UserModel user) {
-        userDao.update(user);
+        userRepository.save(user);
     }
 
     public void delete(UserModel user) {
-        userDao.delete(user);
+        userRepository.delete(user);
     }
 
     public boolean existUser(String username, String email) {
-        return this.get(username) != null || this.get(email) != null;
+        return userRepository.existsByUsername(username) || userRepository.existsByEmail(email);
     }
 
     public boolean checkedPassword(String password){

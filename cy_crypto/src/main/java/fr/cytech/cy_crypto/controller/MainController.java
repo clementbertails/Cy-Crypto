@@ -42,7 +42,7 @@ public class MainController {
     @PostMapping("signin")
     public String postSignin(@RequestParam Map<String, String> allParams, HttpServletRequest request, RedirectAttributes rAttributes){
         if (userService.allSigninParams(allParams)) {
-            UserModel user = userService.get(allParams.get("login"));
+            UserModel user = userService.find(allParams.get("login"));
             if (user == null || !BCrypt.checkpw(allParams.get("password"), user.getPassword())) {
                 rAttributes.addAttribute("cannotSignin", true);
                 return "redirect:/signin";

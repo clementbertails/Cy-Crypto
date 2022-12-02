@@ -35,7 +35,7 @@ public class MailModel {
     private Integer id;
 
     @Column(name = "date", unique = true)
-	@Temporal(value=TemporalType.DATE)
+	@Temporal(value=TemporalType.TIMESTAMP)
     private Date date;
     
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

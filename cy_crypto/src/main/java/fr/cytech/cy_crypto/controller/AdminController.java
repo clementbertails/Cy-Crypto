@@ -37,25 +37,25 @@ public class AdminController    {
 
     @PostMapping("/addAdmin")
     public String addAdmin(@RequestParam Integer id, Model model){
-        UserModel user = adminService.get(id);
+        UserModel user = adminService.find(id);
         user.setRole(Role.ADMIN);
-        adminService.update(user);
+        adminService.save(user);
         model.addAttribute("addAdmin", true);
         return "manageUser";
     }
 
     @PostMapping("/removeAdmin")
     public String removeAdmin(@RequestParam Integer id, Model model) {
-        UserModel user = adminService.get(id);
+        UserModel user = adminService.find(id);
         user.setRole(Role.USER);
-        adminService.update(user);
+        adminService.save(user);
         model.addAttribute("removedAdmin", true);
         return "manage_users";
     }
 
     @PostMapping("/removeUser")
     public String removeUser(@RequestParam Integer id, Model model) {
-        UserModel user = adminService.get(id);
+        UserModel user = adminService.find(id);
         adminService.delete(user);
         model.addAttribute("deletedUser", true);
         return "manage_users";
