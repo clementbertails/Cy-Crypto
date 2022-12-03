@@ -2,17 +2,22 @@
 <!DOCTYPE html>
 <html lang="en">
     <c:import url="/WEB-INF/include/head.jsp"/>
-    <body>
+    <body class="text-center">
         <c:import url="/WEB-INF/include/header.jsp"/>
-
         <form action="/signin" method="post">
-            <label for="login"></label>
-            <input type="text" name="login" id="login" placeholder="Login" required>
+            <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        
+            <div class="form-floating">
+              <input type="text" class="form-control" name="login" id="login" placeholder="Login" required>
+              <label for="login">Login</label>
+            </div>
+            <div class="form-floating">
+              <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+              <label for="password">Password</label>
+            </div>
 
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" placeholder="Password" required>
-
-            <input type="submit" name="signin" id="signin" value="Connect" onclick="test()">
+            <button class="w-100 btn btn-lg btn-primary" type="submit" name="signin" id="signin" value="Connect" onclick="test()">Sign in</button>
         </form>
 
         <c:if test="${param.notLogged}">

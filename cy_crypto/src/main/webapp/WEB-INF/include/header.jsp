@@ -35,17 +35,5 @@
               </c:choose>
             </div>
           </div>
-    
-        <c:choose>
-            <c:when test="${sessionScope.user == null}">
-                <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="/register" class="nav-link px-2 link-dark">Sign-up</a></li>
-                    <li><a href="/signin" class="nav-link px-2 link-dark">Login</a></li>
-                </ul>
-            </c:when>
-            <c:otherwise>
-                <a href="/signout">Sign Out</a>
-            </c:otherwise>
-        </c:choose>
     </nav>
 </header>
