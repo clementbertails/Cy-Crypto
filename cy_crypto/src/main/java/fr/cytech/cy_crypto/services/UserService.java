@@ -1,8 +1,11 @@
 package fr.cytech.cy_crypto.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Transactional
     public UserModel find(Object user) {
         try {
             switch (user.getClass().getSimpleName()) {
@@ -45,11 +49,13 @@ public class UserService {
             return null;
         }
     }
-    
+
+    @Transactional
     public List<UserModel> findAll() {
         return userRepository.findAll();
     }
 
+    @Transactional
     public List<UserModel> findAllByAttribute(String attribute, Object value){
         switch (attribute) {
             case "role":
@@ -80,10 +86,12 @@ public class UserService {
         }
     }
 
+    @Transactional
     public void save(UserModel user) {
         userRepository.save(user);
     }
 
+    @Transactional
     public void delete(UserModel user) {
         userRepository.delete(user);
     }

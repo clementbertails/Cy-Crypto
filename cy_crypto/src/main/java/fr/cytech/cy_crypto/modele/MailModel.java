@@ -50,11 +50,11 @@ public class MailModel {
                 inverseJoinColumns = { @JoinColumn(name = "sender_id", nullable = false, updatable = false) })
     private UserModel sender;
 
-    @Column(name = "title")
+    @Column(name = "subject", unique = true)
     @Size(min = 1, message = "Field required !")
-    private String title;
+    private String subject;
 
-    @Column(name = "content")
+    @Column(name = "content", unique = true)
     @Lob
     @Size(min = 1, message = "Field required !")
     private String content;
