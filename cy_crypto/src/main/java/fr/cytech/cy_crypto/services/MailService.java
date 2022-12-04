@@ -20,8 +20,12 @@ public class MailService {
     private MailRepository mailRepository;
 
     @Transactional
-    public MailModel find(Integer id) {
+    public MailModel find(Long id) {
         return mailRepository.findById(id).isPresent() ? mailRepository.findById(id).get() : null;
+    }
+
+    public MailModel find(int id){
+        return find((long) id);
     }
     
     @Transactional

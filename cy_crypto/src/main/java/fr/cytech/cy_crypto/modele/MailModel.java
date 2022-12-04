@@ -32,7 +32,7 @@ public class MailModel {
     @Id
     @Column(name = "id", unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "date", unique = true)
 	@Temporal(value=TemporalType.TIMESTAMP)

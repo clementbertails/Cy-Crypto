@@ -5,7 +5,7 @@
     <body class="text-center">
         <c:import url="/WEB-INF/include/header.jsp"/>
 
-            <form action="/signin" method="post">
+            <form action="/signup" method="post">
                 <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
                 <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
             
@@ -23,12 +23,7 @@
                     <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
                     <label for="username">Username</label>
                 </div>
-
-                <div class="form-floating">
-                    <input type="text" class="form-control" name="login" id="login" placeholder="Login" required>
-                    <label for="login">Login</label>
-                </div>
-
+                
                 <div class="form-floating">
                     <input type="text" class="form-control" name="email" id="email" placeholder="nom@example.com" required>
                     <label for="email">E-mail</label>
@@ -46,12 +41,7 @@
 
                 <button class="w-100 btn btn-lg btn-primary" type="submit" name="signup" id="signup" value="Sign Up">Sign up</button>
             </form>
-
-        <form action="/signup" method="post">
-
-            <input type="submit" name="signup" id="signup" value="Sign Up">
-        </form>
-
+            
         <c:if test="${param.existUser}">
             <h1>User already exist !</h1>
             <!-- pseudo ou adresse mail deja prise -->

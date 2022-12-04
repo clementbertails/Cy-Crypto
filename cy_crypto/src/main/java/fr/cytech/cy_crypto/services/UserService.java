@@ -1,6 +1,5 @@
 package fr.cytech.cy_crypto.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -24,12 +23,13 @@ public class UserService {
     public UserModel find(Object user) {
         try {
             switch (user.getClass().getSimpleName()) {
-                case "Integer":
-                    return userRepository.findById((Integer) user).isPresent() ? userRepository.findById((Integer) user).get() 
+                case "Long":
+                    return userRepository.findById((Long) user).isPresent() ? userRepository.findById((Long) user).get() 
                             : null;
 
+                case "Integer":
                 case "int":
-                    return userRepository.findById((int) user).isPresent() ? userRepository.findById((int) user).get() 
+                    return userRepository.findById((Long) user).isPresent() ? userRepository.findById((Long) user).get() 
                             : null;
 
             
@@ -68,10 +68,8 @@ public class UserService {
                             return userRepository.findAllByRole(Role.valueOf((String) value));
                         
                         case "int":
-                            return userRepository.findAllByRole(Role.values()[(int) value]);
-
                         case "Integer":
-                            return userRepository.findAllByRole(Role.values()[(Integer) value]);
+                            return userRepository.findAllByRole(Role.values()[(int) value]);
 
                         default:
                             break;

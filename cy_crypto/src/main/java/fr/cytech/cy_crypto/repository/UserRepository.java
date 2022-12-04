@@ -10,7 +10,7 @@ import fr.cytech.cy_crypto.modele.Role;
 import fr.cytech.cy_crypto.modele.UserModel;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserModel, Integer> {
+public interface UserRepository extends JpaRepository<UserModel, Long> {
 
     public Optional<UserModel> findByUsername(String username);
 

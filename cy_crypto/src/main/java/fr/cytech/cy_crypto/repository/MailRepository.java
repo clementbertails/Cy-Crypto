@@ -10,7 +10,7 @@ import fr.cytech.cy_crypto.modele.MailModel;
 import fr.cytech.cy_crypto.modele.UserModel;
 
 @Repository
-public interface MailRepository extends JpaRepository<MailModel, Integer>{
+public interface MailRepository extends JpaRepository<MailModel, Long>{
 
     public List<MailModel> findAllByDate(Date date);
     

@@ -11,5 +11,4 @@ public class CyCryptoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CyCryptoApplication.class, args);
 	}
-
 }

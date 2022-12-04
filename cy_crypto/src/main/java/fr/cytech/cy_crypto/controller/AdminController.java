@@ -36,7 +36,7 @@ public class AdminController    {
     }
 
     @PostMapping("/addAdmin")
-    public String addAdmin(@RequestParam Integer id, Model model){
+    public String addAdmin(@RequestParam Long id, Model model){
         UserModel user = adminService.find(id);
         user.setRole(Role.ADMIN);
         adminService.save(user);
@@ -45,7 +45,7 @@ public class AdminController    {
     }
 
     @PostMapping("/removeAdmin")
-    public String removeAdmin(@RequestParam Integer id, Model model) {
+    public String removeAdmin(@RequestParam Long id, Model model) {
         UserModel user = adminService.find(id);
         user.setRole(Role.USER);
         adminService.save(user);
@@ -54,7 +54,7 @@ public class AdminController    {
     }
 
     @PostMapping("/removeUser")
-    public String removeUser(@RequestParam Integer id, Model model) {
+    public String removeUser(@RequestParam Long id, Model model) {
         UserModel user = adminService.find(id);
         adminService.delete(user);
         model.addAttribute("deletedUser", true);
