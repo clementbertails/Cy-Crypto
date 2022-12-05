@@ -29,39 +29,39 @@ public class CurrencyInformationModel {
     @Column(name = "median")
     private Double median;
     
-    @Column(name = "volume_day")
-    private Double volume_day;
+    @Column(name = "volumeDay")
+    private Double volumeDay;
 
-    @Column(name = "volume_day_to")
-    private Double volume_day_to;
+    @Column(name = "volumeDayTo")
+    private Double volumeDayTo;
 
-    @Column(name = "volume_24hour")
-    private Double volume_24hour;
+    @Column(name = "volume24hour")
+    private Double volume24hour;
 
-    @Column(name = "volume_24hour_to")
-    private Double volume_24hour_to;
+    @Column(name = "volume24hourTo")
+    private Double volume24hourTo;
 
-    @Column(name = "open_day")
-    private Double open_day;
+    @Column(name = "openDay")
+    private Double openDay;
 
-    @Column(name = "high_day")
-    private Double high_day;
+    @Column(name = "highDay")
+    private Double highDay;
 
-    @Column(name = "low_day")
-    private Double low_day;
+    @Column(name = "lowDay")
+    private Double lowDay;
 
-    @Column(name = "volume_hour")
-    private String volume_hour;
+    @Column(name = "volumeHour")
+    private Double volumeHour;
 
-    @Column(name = "volume_hour_to")
-    private String volume_hour_to;
+    @Column(name = "volumeHourTo")
+    private Double volumeHourTo;
 
-    @Column(name = "open_hour")
-    private String open_hour;
+    @Column(name = "openHour")
+    private Double openHour;
 
-    @Column(name = "high_hour")
-    private String high_hour;
+    @Column(name = "highHour")
+    private Double highHour;
 
-    @Column(name = "low_hour")
-    private String low_hour;
+    @Column(name = "lowHour")
+    private Double lowHour;
 }

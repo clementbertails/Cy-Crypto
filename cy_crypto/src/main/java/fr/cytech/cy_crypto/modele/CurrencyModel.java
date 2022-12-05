@@ -40,6 +40,8 @@ public class CurrencyModel {
     private List<CurrencyHistoryModel> history;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "information")
+    @JoinTable( name = "currency_information_association",
+                joinColumns = {@JoinColumn(name = "currency_id", nullable = false)},
+                inverseJoinColumns = {@JoinColumn(name = "information_id", nullable = false)})
     private List<CurrencyInformationModel> information;
 }

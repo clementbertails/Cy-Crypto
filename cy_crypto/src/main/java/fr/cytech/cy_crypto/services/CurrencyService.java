@@ -7,7 +7,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.cytech.cy_crypto.modele.CurrencyHistoryModel;
 import fr.cytech.cy_crypto.modele.CurrencyModel;
 import fr.cytech.cy_crypto.repository.CurrencyRepository;
 
