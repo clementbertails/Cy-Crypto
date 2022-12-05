@@ -20,27 +20,27 @@ public class CurrencyHistoryModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "convertedTo", unique = true)
+    @Column(name = "convertedTo")
     private ClassicCurrency convertedTo;
 
-    @Column(name = "time", unique = true)
+    @Column(name = "time")
     private Long time;
 
-    @Column(name = "high", unique = true)
+    @Column(name = "high")
     private Double high;
 
-    @Column(name = "low", unique = true)
+    @Column(name = "low")
     private Double low;
 
-    @Column(name = "open", unique = true)
+    @Column(name = "open")
     private Double open;
 
-    @Column(name = "volume_from", unique = true)
-    private Double volume_from;
+    @Column(name = "volumefrom")
+    private Double volumefrom;
 
-    @Column(name = "volume_to", unique = true)
-    private Double volume_to;
+    @Column(name = "volumeto")
+    private Double volumeto;
 
-    @Column(name = "close", unique = true)
+    @Column(name = "close")
     private Double close;
 }

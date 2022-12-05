@@ -8,4 +8,5 @@ import fr.cytech.cy_crypto.modele.CurrencyModel;
 @Repository
 public interface CurrencyRepository extends JpaRepository<CurrencyModel, String> {
 
+    public CurrencyModel findBySymbol(String symbol);
 }
