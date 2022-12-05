@@ -110,7 +110,6 @@ public class UserController {
                 MailModel mail = new MailModel();
                 mail.setSubject(allParams.get("subject"));
                 mail.setContent(allParams.get("content"));
-                System.out.println(request.getSession().getAttribute("user"));
                 mail.setSender((UserModel) request.getSession().getAttribute("user"));
                 List<UserModel> receivers = new ArrayList<UserModel>();
                 for(String receiverAttribute : allParams.get("receivers").split(",")) {

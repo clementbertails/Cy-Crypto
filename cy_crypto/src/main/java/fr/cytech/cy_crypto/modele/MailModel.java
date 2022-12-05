@@ -40,14 +40,14 @@ public class MailModel {
     
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable( name = "mail_association",
-                joinColumns = {@JoinColumn(name = "mail_id", nullable = false, updatable = false) },
-                inverseJoinColumns = { @JoinColumn(name = "receiver_id", nullable = false, updatable = false) })
-    private List<UserModel> receivers = new ArrayList<UserModel>();
+                joinColumns = {@JoinColumn(name = "mail_id") },
+                inverseJoinColumns = { @JoinColumn(name = "receiver_id") })
+    private List<UserModel> receivers;  
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable( name = "mail_association",
-                joinColumns = {@JoinColumn(name = "mail_id", nullable = false, updatable = false) },
-                inverseJoinColumns = { @JoinColumn(name = "sender_id", nullable = false, updatable = false) })
+                joinColumns = {@JoinColumn(name = "mail_id") },
+                inverseJoinColumns = { @JoinColumn(name = "sender_id") })
     private UserModel sender;
 
     @Column(name = "subject", unique = true)

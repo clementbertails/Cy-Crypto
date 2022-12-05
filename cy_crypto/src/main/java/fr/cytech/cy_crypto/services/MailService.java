@@ -19,6 +19,9 @@ public class MailService {
     @Autowired
     private MailRepository mailRepository;
 
+    @Autowired
+    private UserService userService;
+
     @Transactional
     public MailModel find(Long id) {
         return mailRepository.findById(id).isPresent() ? mailRepository.findById(id).get() : null;
@@ -44,7 +47,6 @@ public class MailService {
                     return mailRepository.findAllByReceivers((UserModel) value);
     
                 case "date":
-                    // TODO : test for date format
                     return mailRepository.findAllByDate((Date) value);
     
                 default:
