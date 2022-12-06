@@ -1,22 +1,22 @@
 <%@ include file="/WEB-INF/include/jstl.jsp"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
     <c:import url="/WEB-INF/include/head.jsp"/>
-    <body class="bg-light">
+    <body class="d-flex flex-column h-100">
         <c:import url="/WEB-INF/include/header.jsp"/>
 
         <div class="container">
             <main>
                 <div class="py-5 text-center">
-                    <img class="d-block mx-auto mb-4" src="assets/appLogo.png"  alt="" width="72" height="57">
+                    <img class="d-block mx-auto mb-4" src="assets/appLogo.png"  alt="" width="100" height="100">
                     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
                 </div>
 
-                <div class="py-5 text-center">
-                    <c:if test="${param.notLogged}">
+                <c:if test="${param.notLogged}">
+                    <div class="py-5 text-center">
                         <h1 class="h3 mb-3 fw-normal">You tried to reach a page without being logged !</h1>
-                    </c:if>
-                </div>
+                    </div>
+                </c:if>
 
                 <div class="container">
                     <form action="/signin" method="post">
@@ -34,8 +34,8 @@
 
                             <button class="w-100 btn btn-lg btn-primary" type="submit" name="signin" id="signin" value="Connect" onclick="test()">Sign in</button>
                             
-                            <div class ="col-12 text-center">
-                                <c:if test="${param.cannotSignin}">
+                            <c:if test="${param.cannotSignin}">
+                                <div class ="col-12 text-center">
                                     <h1 class="h3 mb-3 fw-normal">Password or Login is incorrect !</h1>
                                     <h3 class="h4 mb-3 fw-normal">You don't have an account ?</h3>
                                     <div class="row justify-content-center">
@@ -43,14 +43,15 @@
                                             <a href="/signup" class="nav-link px-2 text-bg-dark">Sign-up</a>
                                         </div>
                                     </div>
-                                </c:if>
-                            </div>
+                                </div>
+                            </c:if>
 
-                            <div>
-                                <c:if test="${param.invalidParams}">
+                            <c:if test="${param.invalidParams}">
+                                <div>
                                     <h1 class="h3 mb-3 fw-normal">Invalid parameters sends to server !</h1>
-                                </c:if>
-                            </div>
+                                </div>
+                            </c:if>
+
                         </div>
                     </form>
                 </div>

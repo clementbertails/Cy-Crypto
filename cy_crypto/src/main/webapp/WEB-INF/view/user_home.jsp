@@ -1,13 +1,9 @@
 <%@ include file="/WEB-INF/include/jstl.jsp"%>
 <!DOCTYPE html>
-<html lang="en">
+<html class="h-100" lang="en">
     <c:import url="/WEB-INF/include/head.jsp"/>
-    <body>
+    <body class="d-flex flex-column h-100">
         <c:import url="/WEB-INF/include/header.jsp"/>
-
-        <a href="/user/mail">Mail</a>
-        <a href="/user/manage">Account informations</a>
-        <a href="/user/currencies">Currencies & Favouries</a>
 
         <h1>Welcome <c:out value="${sessionScope.user.username}"/></h1>
         <c:import url="/WEB-INF/include/currency_view.jsp"/>

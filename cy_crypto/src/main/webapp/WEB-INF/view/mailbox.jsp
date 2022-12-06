@@ -1,8 +1,8 @@
 <%@ include file="/WEB-INF/include/jstl.jsp"%>
 <!DOCTYPE html>
-<html lang="en">
+<html class="h-100"lang="en">
     <c:import url="/WEB-INF/include/head.jsp"/>
-    <body>
+    <body class="d-flex flex-column h-100">
         <c:import url="/WEB-INF/include/header.jsp"/>
 
         Welcome <c:out value="${sessionScope.user.username}"/>

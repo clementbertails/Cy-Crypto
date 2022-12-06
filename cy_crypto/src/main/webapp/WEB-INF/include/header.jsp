@@ -2,36 +2,48 @@
 <header class="p-3 text-bg-dark"> 
     <nav>
         
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-              <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="/assets/logo.jpg"></svg>
-              </a>
-      
-              <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">About</a></li>
-              </ul>
-      
-              <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
-              </form>
-      
-              <c:choose>
-                <c:when test="${sessionScope.user == null}">
-                    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="/signin" class="nav-link px-2 text-secondary">Sign-in</a></li>
-                        <li><a href="/signup" class="nav-link px-2 text-white">Sign-up</a></li>
-                    </ul>
-                </c:when>
-                <c:otherwise>
-                    <a href="/signout" class="nav-link px-2 text-white">Sign-out</a>
-                </c:otherwise>
-              </c:choose>
-            </div>
+      <div class="container">
+        <div class="row">
+
+          <div class="col-1">
+            <a href="/"><img src="assets/appLogo.png" width="50" height="50"></a>
           </div>
+
+          <div class="col-5">
+            <c:choose>
+              <c:when test="${sessionScope.user != null}">
+                <ul class="nav justify-content-start mb-md-0">
+                  <li><a href="/user/home" class="nav-link px-2 text-secondary">Home</a></li>
+                  <li><a href="/user/mail" class="nav-link px-2 text-white">Mail</a></li>
+                  <li><a href="/user/manage" class="nav-link px-2 text-white">Account informations</a></li>
+                  <li><a href="/user/currencies" class="nav-link px-2 text-white">Currencies & Favouries</a></li>
+                </ul>
+              </c:when>
+            </c:choose>
+          </div>
+
+          <div class="col-4">
+            <form class="justify-content-end" role="search">
+              <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
+            </form>
+          </div>
+
+          <div class="col-2">
+            <c:choose>
+              <c:when test="${sessionScope.user == null}">
+                  <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                      <li><a href="/signin" class="nav-link px-2 text-secondary">Sign-in</a></li>
+                      <li><a href="/signup" class="nav-link px-2 text-white">Sign-up</a></li>
+                  </ul>
+              </c:when>
+              <c:otherwise>
+                <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                  <li><a href="/signout" class="nav-link px-2 text-white">Sign-out</a></li>
+                </ul>
+                </c:otherwise>
+            </c:choose>
+          </div>
+        </div>
+      </div>
     </nav>
 </header>
