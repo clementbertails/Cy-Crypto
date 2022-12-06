@@ -118,6 +118,10 @@ public class UserController {
                         receivers.add(receiverUser);
                     }
                 }
+                if (receivers.isEmpty()) {
+                    rAttributes.addAttribute("errorReceiver", true);
+                    return "redirect:/user/mail";
+                }
                 mail.setReceivers(receivers);
                 mail.setDate(Date.from(java.time.Instant.now()));
                 mailService.save(mail);

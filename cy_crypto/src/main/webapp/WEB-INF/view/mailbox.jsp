@@ -7,7 +7,7 @@
 
         Welcome <c:out value="${sessionScope.user.username}"/>
 
-        <c:if test="{para.mailSent}">
+        <c:if test="${param.mailSent}">
             <div class="alert alert-success" role="alert">
                 Mail sent successfully!
             </div>
@@ -27,11 +27,11 @@
             <input type="submit" value="Send"/>
         </form>
 
-        You have <c:out value="${mails.size()}"/> messages in your mailbox.
-        <c:forEach items="${mails}" var="element">
+        You have <c:out value="${requestScope.mails.size()}"/> messages in your mailbox.
+        <c:forEach items="${requestScope.mails}" var="element">
             <div id="${element.id}_MailSender">
                 <c:out value="${element.date}"/>
-                <c:out value="${element.sender}"/>
+                <c:out value="${element.sender.username}"/>
             </div>
             <div id="${element.id}_MailSubject">
                 <c:out value="${element.subject}"/>

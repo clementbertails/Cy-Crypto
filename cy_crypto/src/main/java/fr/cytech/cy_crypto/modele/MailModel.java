@@ -1,13 +1,11 @@
 package fr.cytech.cy_crypto.modele;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,14 +36,14 @@ public class MailModel {
 	@Temporal(value=TemporalType.TIMESTAMP)
     private Date date;
     
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable( name = "mail_association",
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable( name = "mail_association_receivers",
                 joinColumns = {@JoinColumn(name = "mail_id") },
                 inverseJoinColumns = { @JoinColumn(name = "receiver_id") })
     private List<UserModel> receivers;  
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable( name = "mail_association",
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinTable( name = "mail_association_sender",
                 joinColumns = {@JoinColumn(name = "mail_id") },
                 inverseJoinColumns = { @JoinColumn(name = "sender_id") })
     private UserModel sender;
@@ -59,7 +57,7 @@ public class MailModel {
     @Size(min = 1, message = "Field required !")
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "previousMail")
     private MailModel previousMail;
 }
