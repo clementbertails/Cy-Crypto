@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -145,22 +146,81 @@ public class UserController {
     }
 
     @GetMapping("/manage")
-    public String manageInformations(HttpServletRequest request, RedirectAttributes rAttributes){
+    public String manageInformations(HttpServletRequest request, RedirectAttributes rAttributes, Model model){
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
         } else {
-            return "manage_info";   
+            return "manage_info";
         }
     }
 
-    @GetMapping("/saveInfos")
-    public String managePassword(@RequestParam Map<String, String> allParams, HttpServletRequest request, RedirectAttributes rAttributes){
+    @PostMapping("/saveInformations")
+    public String manageInfos(@RequestParam Map<String, String> allParams, HttpServletRequest request, RedirectAttributes rAttributes){
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
         } else {
-            return "redirect:/user/home/manage";   
+            UserModel user = (UserModel) request.getSession().getAttribute("user");
+            if (userService.allUpdateInformationsParams(allParams)) {
+                if (userService.checkedEmail(allParams.get("email"))) {
+                    if (userService.find(allParams.get("username")) != null && !allParams.get("username").equals(user.getUsername())) {
+                        rAttributes.addAttribute("usedUsername", true);
+                        return "redirect:/user/manage";
+                    } else {
+                        if (userService.find(allParams.get("email")) != null && !allParams.get("email").equals(user.getEmail())) {
+                            rAttributes.addAttribute("usedEmail", true);
+                            return "redirect:/user/manage";
+                        } else {
+                            user.setUsername(allParams.get("username"));
+                            user.setEmail(allParams.get("email"));
+                            user.setName(allParams.get("name"));
+                            user.setLastName(allParams.get("lastName"));
+                            userService.save(user);
+                            rAttributes.addAttribute("updatedInformations", true);
+                            return "redirect:/user/manage";
+                        }
+                    }
+                } else {
+                    
+                    rAttributes.addAttribute("errorEmail", true);
+                    return "redirect:/user/manage";
+                }
+            } else {
+                rAttributes.addAttribute("errorParams", true);
+                return "redirect:/user/manage";
+            }
+        }
+    }
+
+    @PostMapping("/savePassword")
+    public String managePassword(@RequestParam Map<String, String> allParams, HttpServletRequest request, RedirectAttributes rAttributes, Model model){
+        if (request.getSession().getAttribute("user") == null) {
+            rAttributes.addAttribute("notLogged", true);
+            return "redirect:/signin";
+        } else {
+
+            UserModel user = (UserModel) request.getSession().getAttribute("user");
+            if (BCrypt.checkpw(allParams.get("lastPassword"), user.getPassword())) {
+                if (!allParams.get("password").equals(allParams.get("passwordConf"))) {
+                    rAttributes.addAttribute("diffPassword", true);
+                    return "redirect:/user/manage";
+                } else {
+                    if (userService.checkedPassword(allParams.get("password"))) {
+                        user.setPassword(BCrypt.hashpw(allParams.get("password"), BCrypt.gensalt()));
+                        userService.save(user);
+                        rAttributes.addAttribute("passwordChanged", true);
+                        return "redirect:/user/manage";
+                    } else {
+                        rAttributes.addAttribute("weakPassword", true);
+                        return "redirect:/user/manage";
+                    }
+                }
+            } else {
+                rAttributes.addAttribute("wrongPassword", true);
+                return "redirect:/user/manage";
+            }
+            
         }
     }
 

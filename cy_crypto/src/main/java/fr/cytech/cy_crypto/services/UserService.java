@@ -147,4 +147,25 @@ public class UserService {
         }
         return true;
     }
+
+    public boolean allUpdateInformationsParams(Map<String, String> allParams){
+        for (var entry : allParams.entrySet()) {
+            switch (entry.getKey()) {
+                case "name":
+                case "lastName":
+                case "username":
+                case "email":
+                    if (entry.getValue() == null || entry.getValue() == "") {
+                        return false;
+                    }
+
+                case "saveInformations":
+                    break;
+            
+                default:
+                    return false;
+            }
+        }
+        return true;
+    }
 }
