@@ -1,7 +1,5 @@
 <%@ include file="/WEB-INF/include/jstl.jsp"%>
 <header class="p-3 text-bg-dark"> 
-
-    <script src="/js/header.js"></script>
     <nav>
         
         <div class="container">

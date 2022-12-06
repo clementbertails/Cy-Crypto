@@ -8,7 +8,7 @@
         <div class="container">
             <main>
                 <div class="py-5 text-center">
-                    <img class="d-block mx-auto mb-4" src="/assets/logo.jpg"  alt="" width="72" height="57">
+                    <img class="d-block mx-auto mb-4" src="assets/appLogo.png"  alt="" width="72" height="57">
                     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
                 </div>
 
