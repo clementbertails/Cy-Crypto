@@ -1,10 +1,10 @@
 <footer class="footer mt-auto py-3 bg-light border-top">  
   <!-- mt-auto permet théoriquement de coller le footer en bas  -->
 
-  <div class="container-fluid">
+  <div class="container-fluid gy-3 ">
 
     <div class="row">
-      <div class="col-8 position-static bottom-50">
+      <div class="col-8">
         <p>&copy; 2022 CY-CRYPTO</p>
       </div>
 
