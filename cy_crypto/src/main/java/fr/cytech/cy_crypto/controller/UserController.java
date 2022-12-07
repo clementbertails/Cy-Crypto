@@ -36,13 +36,12 @@ public class UserController {
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
-        } else {
-            // Favourite list
-            // mail
-            // instant message with admins
-            // manage profile
-            return "user_home";
         }
+        // Favourite list
+        // mail
+        // instant message with admins
+        // manage profile
+        return "user_home";
     }
 
     @PostMapping("/currencies")
@@ -50,13 +49,12 @@ public class UserController {
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
-        } else {
-            // Favourite list
-            // mail
-            // instant message with admins
-            // manage profile
-            return "currencies";
         }
+        // Favourite list
+        // mail
+        // instant message with admins
+        // manage profile
+        return "currencies";
     }
 
     @GetMapping("/currencies/favourites")
@@ -64,9 +62,8 @@ public class UserController {
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
-        } else {
-            return "add_favourite_currency";
         }
+        return "add_favourite_currency";
     }
 
     @PostMapping("/currencies/addfavourites")
@@ -84,9 +81,8 @@ public class UserController {
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
-        } else {
-            return "redirect:/user/home/currencies";
         }
+        return "redirect:/user/home/currencies";
     }
 
     @GetMapping("/mail")
@@ -94,11 +90,10 @@ public class UserController {
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
-        } else {
-            UserModel user = (UserModel) request.getSession().getAttribute("user");
-            model.addAttribute("mails", mailService.findAllByAttribute("receivers", user));
-            return "mailbox";
         }
+        UserModel user = (UserModel) request.getSession().getAttribute("user");
+        model.addAttribute("mails", mailService.findAllByAttribute("receivers", user));
+        return "mailbox";
     }
 
     @PostMapping("/sendmail")
@@ -106,32 +101,31 @@ public class UserController {
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
-        } else {
-            if (mailService.checkMailParams(allParams)) {
-                MailModel mail = new MailModel();
-                mail.setSubject(allParams.get("subject"));
-                mail.setContent(allParams.get("content"));
-                mail.setSender((UserModel) request.getSession().getAttribute("user"));
-                List<UserModel> receivers = new ArrayList<UserModel>();
-                for(String receiverAttribute : allParams.get("receivers").split(",")) {
-                    UserModel receiverUser = userService.find(receiverAttribute);
-                    if (receiverUser != null) {
-                        receivers.add(receiverUser);
-                    }
+        }
+        if (mailService.checkMailParams(allParams)) {
+            MailModel mail = new MailModel();
+            mail.setSubject(allParams.get("subject"));
+            mail.setContent(allParams.get("content"));
+            mail.setSender((UserModel) request.getSession().getAttribute("user"));
+            List<UserModel> receivers = new ArrayList<UserModel>();
+            for(String receiverAttribute : allParams.get("receivers").split(",")) {
+                UserModel receiverUser = userService.find(receiverAttribute);
+                if (receiverUser != null) {
+                    receivers.add(receiverUser);
                 }
-                if (receivers.isEmpty()) {
-                    rAttributes.addAttribute("errorReceiver", true);
-                    return "redirect:/user/mail";
-                }
-                mail.setReceivers(receivers);
-                mail.setDate(Date.from(java.time.Instant.now()));
-                mailService.save(mail);
-                rAttributes.addAttribute("mailSent", true);
-                return "redirect:/user/mail";
-            } else {
-                rAttributes.addAttribute("errorParams", true);
+            }
+            if (receivers.isEmpty()) {
+                rAttributes.addAttribute("errorReceiver", true);
                 return "redirect:/user/mail";
             }
+            mail.setReceivers(receivers);
+            mail.setDate(Date.from(java.time.Instant.now()));
+            mailService.save(mail);
+            rAttributes.addAttribute("mailSent", true);
+            return "redirect:/user/mail";
+        } else {
+            rAttributes.addAttribute("errorParams", true);
+            return "redirect:/user/mail";
         }
     }
 
@@ -140,9 +134,8 @@ public class UserController {
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
-        } else {
-            return "redirect:/user/mail";
         }
+        return "redirect:/user/mail";
     }
 
     @GetMapping("/manage")

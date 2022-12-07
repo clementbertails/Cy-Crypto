@@ -41,6 +41,9 @@ public class MainController {
 
     @PostMapping("signin")
     public String postSignin(@RequestParam Map<String, String> allParams, HttpServletRequest request, RedirectAttributes rAttributes){
+        if (request.getSession().getAttribute("user") != null) {
+            return "redirect:/user/home";
+        }
         if (userService.allSigninParams(allParams)) {
             UserModel user = userService.find(allParams.get("login"));
             if (user == null || !BCrypt.checkpw(allParams.get("password"), user.getPassword())) {
@@ -66,6 +69,9 @@ public class MainController {
 
     @PostMapping("signup")
     public String postSignup(@RequestParam Map<String, String> allParams, HttpServletRequest request, RedirectAttributes rAttributes) {
+        if (request.getSession().getAttribute("user") != null) {
+            return "redirect:/user/home";
+        }
         if (!userService.existUser(allParams.get("username"), allParams.get("email"))) {
             if (userService.allSignupParams(allParams)) {
                 if (!allParams.get("password").equals(allParams.get("passwordConf"))) {
@@ -83,6 +89,7 @@ public class MainController {
                             user.setRole(Role.USER);
                             userService.save(user);
                             request.getSession().setAttribute("user", user);
+                            return "redirect:/user/home";
                         } else {
                             rAttributes.addAttribute("incorrectEmail", true);
                             return "redirect:/signup";
@@ -101,7 +108,6 @@ public class MainController {
             rAttributes.addAttribute("existUser", true);
             return "redirect:/signup";
         }
-        return "redirect:/user/home";
     }
 
     @GetMapping("signout")
