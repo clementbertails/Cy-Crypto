@@ -62,23 +62,31 @@ public class UserController {
         return "currencies";
     }
 
-    @PostMapping("/addFavoritesCrypto")
-    public String addFavoriteCrypto(HttpServletRequest request, RedirectAttributes rAttributes){
-        if (request.getSession().getAttribute("user") == null) {
+    @PostMapping("/addfavoritescrypto/{currency}")
+    public String addFavoriteCrypto(HttpServletRequest request, RedirectAttributes rAttributes, @RequestParam Map<String, String> params){
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
-        } else {
-            return "redirect:/user/home/currencies";
         }
+        params.entrySet().forEach(entry->{
+            System.out.println(entry.getKey() + "/" + entry.getValue());
+        });
+        // if (params.get("currency") != null) {
+        //     user.getFavoriteCurrencies().add(params.get("currency"));
+        //     userService.save(user);
+        // }
+
+        return "redirect:/user/currencies";
     }
 
-    @PostMapping("/removeFavoritesCrypto")
+    @PostMapping("/removefavoritescrypto")
     public String removeFavoriteCrypto(HttpServletRequest request, RedirectAttributes rAttributes){
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
         }
-        return "redirect:/user/home/currencies";
+        return "redirect:/user/currencies";
     }
 
     @GetMapping("/mail")

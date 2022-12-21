@@ -32,7 +32,7 @@
                                 <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
                             </div>
 
-                            <button class="w-100 btn btn-lg btn-primary" type="submit" name="signin" id="signin" value="Connect" onclick="test()">Sign in</button>
+                            <button class="w-100 btn btn-lg btn-primary" type="submit" name="signin" id="signin">Sign in</button>
                             
                             <c:if test="${param.cannotSignin}">
                                 <div class ="col-12 text-center">
