@@ -18,7 +18,7 @@
                     </div>
                 </c:if>
 
-                <div class="container">
+                <div class="container mx-auto col-6">
                     <form action="/signin" method="post">
                         <div class="row gy-3">
                             

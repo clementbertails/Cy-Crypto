@@ -5,7 +5,7 @@
     <body class="d-flex flex-column h-100">
         <c:import url="/WEB-INF/include/header.jsp"/>
 
-        <div class="container py-3">
+        <div class="container py-3 mx-auto col-6">
             <main >
                 <div class="py-5 text-center">
                     <img class="d-block mx-auto mb-4" src="assets/appLogo.png"  alt="" width="100" height="100">
