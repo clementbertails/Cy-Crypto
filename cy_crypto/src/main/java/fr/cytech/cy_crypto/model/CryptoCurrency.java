@@ -1,4 +1,4 @@
-package fr.cytech.cy_crypto.modele;
+package fr.cytech.cy_crypto.model;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class CryptoCurrency {
     private String name;
 
     @Column(name = "icon_path", unique = true)
-    private String icon_path;
+    private String iconPath;
 
     @OneToMany( cascade = CascadeType.ALL)
     @JoinTable( name = "currency_history_association",

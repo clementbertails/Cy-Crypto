@@ -6,7 +6,7 @@
         <div class="row">
 
           <div class="col-2">
-            <a href="/"><img src="assets/appLogo.png" width="50" height="50"></a>
+            <a href="/"><img src="/assets/appLogo.png" width="50" height="50"></a>
           </div>
 
           <div class="col-8">

@@ -9,8 +9,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.cytech.cy_crypto.modele.Mail;
-import fr.cytech.cy_crypto.modele.User;
+import fr.cytech.cy_crypto.model.Mail;
+import fr.cytech.cy_crypto.model.User;
 import fr.cytech.cy_crypto.repository.MailRepository;
 
 @Service

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import fr.cytech.cy_crypto.modele.Role;
-import fr.cytech.cy_crypto.modele.User;
+import fr.cytech.cy_crypto.model.Role;
+import fr.cytech.cy_crypto.model.User;
 import fr.cytech.cy_crypto.services.UserService;
 
 @Controller

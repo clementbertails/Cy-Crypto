@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import fr.cytech.cy_crypto.modele.Role;
-import fr.cytech.cy_crypto.modele.User;
+import fr.cytech.cy_crypto.model.Role;
+import fr.cytech.cy_crypto.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {

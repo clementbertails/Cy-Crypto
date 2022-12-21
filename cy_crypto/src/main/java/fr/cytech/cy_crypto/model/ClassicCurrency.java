@@ -1,4 +1,4 @@
-package fr.cytech.cy_crypto.modele;
+package fr.cytech.cy_crypto.model;
 
 public enum ClassicCurrency {
     EUR,

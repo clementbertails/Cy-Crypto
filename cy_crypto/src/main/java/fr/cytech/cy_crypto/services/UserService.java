@@ -9,8 +9,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.cytech.cy_crypto.modele.Role;
-import fr.cytech.cy_crypto.modele.User;
+import fr.cytech.cy_crypto.model.Role;
+import fr.cytech.cy_crypto.model.User;
 import fr.cytech.cy_crypto.repository.UserRepository;
 
 @Service
@@ -23,22 +23,18 @@ public class UserService {
     public User find(Object user) {
         try {
             switch (user.getClass().getSimpleName()) {
+                case "Integer":
+                case "int":
                 case "Long":
                     return userRepository.findById((Long) user).isPresent() ? userRepository.findById((Long) user).get() 
                             : null;
 
-                case "Integer":
-                case "int":
-                    return userRepository.findById((Long) user).isPresent() ? userRepository.findById((Long) user).get() 
-                            : null;
-
-            
                 case "String":
                     return userRepository.findByUsername((String) user).isPresent() ? userRepository.findByUsername((String) user).get()
                             : userRepository.findByEmail((String) user).isPresent() ? userRepository.findByEmail((String) user).get()
                             : null;
 
-                case "UserModel":
+                case "User":
                     return (User) user;
 
                 default:

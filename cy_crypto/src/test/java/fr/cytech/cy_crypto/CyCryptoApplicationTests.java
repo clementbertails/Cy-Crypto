@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import fr.cytech.cy_crypto.modele.Role;
+import fr.cytech.cy_crypto.model.Role;
 import fr.cytech.cy_crypto.services.MailService;
 import fr.cytech.cy_crypto.services.UserService;
 

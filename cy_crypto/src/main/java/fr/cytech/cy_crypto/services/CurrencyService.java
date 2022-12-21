@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.cytech.cy_crypto.modele.CryptoCurrency;
+import fr.cytech.cy_crypto.model.CryptoCurrency;
 import fr.cytech.cy_crypto.repository.CurrencyRepository;
 
 @Service
@@ -17,14 +17,30 @@ public class CurrencyService {
     private CurrencyRepository currencyRepository;
 
     @Transactional
-    public CryptoCurrency findById(Object currency) {
-        return currencyRepository.findById((String) currency).isPresent() ? currencyRepository.findById((String) currency).get()
-                : null;
-    }
+    public CryptoCurrency find(Object cryptoCurrency) {
+        try {
+            switch (cryptoCurrency.getClass().getSimpleName()) {
 
-    @Transactional
-    public CryptoCurrency findBySymbol(String symbol) {
-        return currencyRepository.findBySymbol(symbol);
+                case "Integer":
+                case "int":
+                case "Long":
+                    return currencyRepository.findById((Long) cryptoCurrency).isPresent() ? currencyRepository.findById((Long) cryptoCurrency).get() 
+                            : null;
+            
+                case "String":
+                    return currencyRepository.findBySymbol((String) cryptoCurrency).isPresent() ? currencyRepository.findBySymbol((String) cryptoCurrency).get()
+                            : null;
+
+                case "CryptoCurrency":
+                    return (CryptoCurrency) cryptoCurrency;
+
+                default:
+                    return null;
+            }
+        } catch (Exception e) {
+            System.err.println("Error while getting user : " + e.getMessage());
+            return null;
+        }
     }
 
     @Transactional

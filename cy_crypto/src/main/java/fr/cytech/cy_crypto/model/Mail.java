@@ -1,4 +1,4 @@
-package fr.cytech.cy_crypto.modele;
+package fr.cytech.cy_crypto.model;
 
 import java.util.Date;
 import java.util.List;
@@ -40,7 +40,7 @@ public class Mail {
     @JoinTable( name = "mail_association_receivers",
                 joinColumns = {@JoinColumn(name = "mail_id") },
                 inverseJoinColumns = { @JoinColumn(name = "receiver_id") })
-    private List<User> receivers;  
+    private List<User> receivers;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinTable( name = "mail_association_sender",

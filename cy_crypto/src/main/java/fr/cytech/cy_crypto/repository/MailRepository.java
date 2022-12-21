@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import fr.cytech.cy_crypto.modele.Mail;
-import fr.cytech.cy_crypto.modele.User;
+import fr.cytech.cy_crypto.model.Mail;
+import fr.cytech.cy_crypto.model.User;
 
 @Repository
 public interface MailRepository extends JpaRepository<Mail, Long>{

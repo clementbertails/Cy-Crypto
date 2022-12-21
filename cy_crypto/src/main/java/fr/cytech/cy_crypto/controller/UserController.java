@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import fr.cytech.cy_crypto.modele.Mail;
-import fr.cytech.cy_crypto.modele.User;
+import fr.cytech.cy_crypto.model.Mail;
+import fr.cytech.cy_crypto.model.User;
+import fr.cytech.cy_crypto.services.CurrencyService;
 import fr.cytech.cy_crypto.services.MailService;
 import fr.cytech.cy_crypto.services.UserService;
 
@@ -31,37 +32,37 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CurrencyService currencyService;
+
     @GetMapping("/home")
-    public String userHome(HttpServletRequest request, RedirectAttributes rAttributes){
-        if (request.getSession().getAttribute("user") == null) {
+    public String userHome(HttpServletRequest request, @RequestParam Map<String, String> allParams, RedirectAttributes rAttributes, Model model){
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
         }
-        // favorite list
+        if (allParams.get("currency") != null) {
+            model.addAttribute("currency", currencyService.find(allParams.get("currency")));
+        } else if (user.getFavoriteCurrencies().size() > 0) {
+            model.addAttribute("currency", currencyService.find(user.getFavoriteCurrencies().get(0)));
+        } else {
+            model.addAttribute("currency", null);
+        }
         return "user_home";
     }
 
-    @PostMapping("/currencies")
-    public String userCurrencies(HttpServletRequest request, RedirectAttributes rAttributes){
-        if (request.getSession().getAttribute("user") == null) {
-            rAttributes.addAttribute("notLogged", true);
-            return "redirect:/signin";
-        }
-        // favorite list
-        // Crypto list
-        return "currencies";
-    }
-
     @GetMapping("/currencies")
-    public String userFavoritesCrypto(HttpServletRequest request, RedirectAttributes rAttributes){
+    public String userFavoritesCrypto(HttpServletRequest request, RedirectAttributes rAttributes, Model model){
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
         }
+        model.addAttribute("currencies", currencyService.findAll());
         return "currencies";
     }
 
-    @PostMapping("/currencies/addfavorites")
+    @PostMapping("/addFavoritesCrypto")
     public String addFavoriteCrypto(HttpServletRequest request, RedirectAttributes rAttributes){
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);
@@ -71,7 +72,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/currencies/removefavorites")
+    @PostMapping("/removeFavoritesCrypto")
     public String removeFavoriteCrypto(HttpServletRequest request, RedirectAttributes rAttributes){
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);

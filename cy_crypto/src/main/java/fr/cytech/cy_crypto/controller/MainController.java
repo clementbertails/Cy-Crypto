@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import fr.cytech.cy_crypto.modele.Role;
-import fr.cytech.cy_crypto.modele.User;
+import fr.cytech.cy_crypto.model.User;
 import fr.cytech.cy_crypto.services.UserService;
 
 @Controller
@@ -86,7 +85,6 @@ public class MainController {
                             user.setUsername(allParams.get("username"));
                             user.setEmail(allParams.get("email"));
                             user.setPassword(BCrypt.hashpw(allParams.get("password"), BCrypt.gensalt()));
-                            user.setRole(Role.USER);
                             userService.save(user);
                             request.getSession().setAttribute("user", user);
                             return "redirect:/user/home";

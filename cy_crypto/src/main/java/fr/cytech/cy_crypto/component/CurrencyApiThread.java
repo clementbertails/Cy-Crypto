@@ -17,10 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import fr.cytech.cy_crypto.modele.ClassicCurrency;
-import fr.cytech.cy_crypto.modele.CurrencyHistory;
-import fr.cytech.cy_crypto.modele.CurrencyInformation;
-import fr.cytech.cy_crypto.modele.CryptoCurrency;
+import fr.cytech.cy_crypto.model.ClassicCurrency;
+import fr.cytech.cy_crypto.model.CryptoCurrency;
+import fr.cytech.cy_crypto.model.CurrencyHistory;
+import fr.cytech.cy_crypto.model.CurrencyInformation;
 import fr.cytech.cy_crypto.services.CurrencyService;
 
 @Component
@@ -106,7 +106,7 @@ public class CurrencyApiThread extends Thread {
                     }
                     
                 }
-                CryptoCurrency currencyModel = currencyService.findBySymbol(cryptoCurrency);
+                CryptoCurrency currencyModel = currencyService.find(cryptoCurrency);
                 currencyModel.setHistory(currencyHistoryModels);
                 currencyService.save(currencyModel);
             } catch (ParseException e) {
@@ -182,7 +182,7 @@ public class CurrencyApiThread extends Thread {
                         currencyInformationModel.setLowHour(Double.parseDouble(currencyInformationObject2.get("LOWHOUR").toString()));
                         currencyInformationModels.add(currencyInformationModel);
                     }
-                    CryptoCurrency currencyModel = currencyService.findBySymbol(currency);
+                    CryptoCurrency currencyModel = currencyService.find(currency);
                     currencyModel.setInformation(currencyInformationModels);
                     currencyService.save(currencyModel);
                 }

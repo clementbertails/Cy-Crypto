@@ -1,7 +1,9 @@
-package fr.cytech.cy_crypto.modele;
+package fr.cytech.cy_crypto.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,6 +23,7 @@ public class CurrencyInformation {
     private Long id;
 
     @Column(name = "convertedTo")
+    @Enumerated(EnumType.STRING)
     private ClassicCurrency convertedTo;
 
     @Column(name = "price")
