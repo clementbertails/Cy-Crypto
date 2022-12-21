@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +20,7 @@ import lombok.Setter;
 @Entity(name = "user")
 @Table(name = "user")
 @Getter @Setter
-public class UserModel {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,12 +43,12 @@ public class UserModel {
     private String password;
 
     @Column(name = "role")
-    // @Enumerated
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable( name = "favorite_currencies_association",
                 joinColumns = {@JoinColumn(name = "user_id") },
                 inverseJoinColumns = { @JoinColumn(name = "currency_id") })
-    private List<CurrencyModel> favoriteCurrencies;
+    private List<CryptoCurrency> favoriteCurrencies;
 }

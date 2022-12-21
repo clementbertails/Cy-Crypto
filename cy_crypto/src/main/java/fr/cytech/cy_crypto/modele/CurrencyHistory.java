@@ -13,7 +13,7 @@ import lombok.Setter;
 @Entity(name = "currency_history")
 @Table(name = "currency_history")
 @Getter @Setter
-public class CurrencyHistoryModel {
+public class CurrencyHistory {
     
     @Id
     @Column(name = "id", unique = true)

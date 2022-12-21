@@ -7,16 +7,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import fr.cytech.cy_crypto.modele.Role;
-import fr.cytech.cy_crypto.modele.UserModel;
+import fr.cytech.cy_crypto.modele.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserModel, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    public Optional<UserModel> findByUsername(String username);
+    public Optional<User> findByUsername(String username);
 
-    public Optional<UserModel> findByEmail(String email);
+    public Optional<User> findByEmail(String email);
 
-    public List<UserModel> findAllByRole(Role role);
+    public List<User> findAllByRole(Role role);
 
     public boolean existsByUsername(String username);
 

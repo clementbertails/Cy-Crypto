@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.cytech.cy_crypto.modele.CurrencyModel;
+import fr.cytech.cy_crypto.modele.CryptoCurrency;
 import fr.cytech.cy_crypto.repository.CurrencyRepository;
 
 @Service
@@ -17,28 +17,28 @@ public class CurrencyService {
     private CurrencyRepository currencyRepository;
 
     @Transactional
-    public CurrencyModel findById(Object currency) {
+    public CryptoCurrency findById(Object currency) {
         return currencyRepository.findById((String) currency).isPresent() ? currencyRepository.findById((String) currency).get()
                 : null;
     }
 
     @Transactional
-    public CurrencyModel findBySymbol(String symbol) {
+    public CryptoCurrency findBySymbol(String symbol) {
         return currencyRepository.findBySymbol(symbol);
     }
 
     @Transactional
-    public List<CurrencyModel> findAll() {
+    public List<CryptoCurrency> findAll() {
         return currencyRepository.findAll();
     }
 
     @Transactional
-    public void save(CurrencyModel currency) {
+    public void save(CryptoCurrency currency) {
         currencyRepository.save(currency);
     }
 
     @Transactional
-    public void delete(CurrencyModel currency) {
+    public void delete(CryptoCurrency currency) {
         currencyRepository.delete(currency);
     }
 }

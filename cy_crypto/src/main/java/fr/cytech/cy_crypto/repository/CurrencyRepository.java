@@ -3,10 +3,10 @@ package fr.cytech.cy_crypto.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import fr.cytech.cy_crypto.modele.CurrencyModel;
+import fr.cytech.cy_crypto.modele.CryptoCurrency;
 
 @Repository
-public interface CurrencyRepository extends JpaRepository<CurrencyModel, String> {
+public interface CurrencyRepository extends JpaRepository<CryptoCurrency, String> {
 
-    public CurrencyModel findBySymbol(String symbol);
+    public CryptoCurrency findBySymbol(String symbol);
 }

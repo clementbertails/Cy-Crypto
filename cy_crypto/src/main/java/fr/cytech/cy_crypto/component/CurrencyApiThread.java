@@ -18,9 +18,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import fr.cytech.cy_crypto.modele.ClassicCurrency;
-import fr.cytech.cy_crypto.modele.CurrencyHistoryModel;
-import fr.cytech.cy_crypto.modele.CurrencyInformationModel;
-import fr.cytech.cy_crypto.modele.CurrencyModel;
+import fr.cytech.cy_crypto.modele.CurrencyHistory;
+import fr.cytech.cy_crypto.modele.CurrencyInformation;
+import fr.cytech.cy_crypto.modele.CryptoCurrency;
 import fr.cytech.cy_crypto.services.CurrencyService;
 
 @Component
@@ -58,9 +58,9 @@ public class CurrencyApiThread extends Thread {
     @Scheduled(cron = "30 0 0 * * *")
     private void historyCalls() {
         System.out.println("History api calls...");
-        List<CurrencyModel> currencies = currencyService.findAll();
+        List<CryptoCurrency> currencies = currencyService.findAll();
         if (!currencies.isEmpty()) {
-            for (CurrencyModel currency : currencies) {
+            for (CryptoCurrency currency : currencies) {
                 for (ClassicCurrency classicCurrency : ClassicCurrency.values()) {
                     try {
                         sendGETHistory(currency.getSymbol(), classicCurrency.toString());
@@ -84,13 +84,13 @@ public class CurrencyApiThread extends Thread {
             JSONParser parser = new JSONParser();
             try {
                 System.err.println("Parsing history for " + cryptoCurrency + "/" + toConvertCurrency);
-                List<CurrencyHistoryModel> currencyHistoryModels = new ArrayList<>();
+                List<CurrencyHistory> currencyHistoryModels = new ArrayList<>();
                 JSONObject jsonObj = (JSONObject) parser.parse(new InputStreamReader(connection.getInputStream()));
                 JSONObject data = (JSONObject) jsonObj.get("Data");
                 JSONArray history = (JSONArray) data.get("Data");
                 for (Object object : history) {
                     try {
-                        CurrencyHistoryModel currencyHistoryModel = new CurrencyHistoryModel();
+                        CurrencyHistory currencyHistoryModel = new CurrencyHistory();
                         JSONObject historyObject = (JSONObject) object;
                         currencyHistoryModel.setConvertedTo(ClassicCurrency.valueOf(toConvertCurrency));
                         currencyHistoryModel.setTime(Long.parseLong(historyObject.get("time").toString()));
@@ -106,7 +106,7 @@ public class CurrencyApiThread extends Thread {
                     }
                     
                 }
-                CurrencyModel currencyModel = currencyService.findBySymbol(cryptoCurrency);
+                CryptoCurrency currencyModel = currencyService.findBySymbol(cryptoCurrency);
                 currencyModel.setHistory(currencyHistoryModels);
                 currencyService.save(currencyModel);
             } catch (ParseException e) {
@@ -122,10 +122,10 @@ public class CurrencyApiThread extends Thread {
     @Scheduled(cron = "0 * * * * *")
     private void informationsCall() {
         System.out.println("Information api call...");
-        List<CurrencyModel> currencies = currencyService.findAll();
+        List<CryptoCurrency> currencies = currencyService.findAll();
         if (!currencies.isEmpty()) {
             String currencyString = "";
-            for (CurrencyModel currency : currencies) {
+            for (CryptoCurrency currency : currencies) {
                 if (currencyString.length() > 0) {
                     currencyString += ",";
                 }
@@ -161,10 +161,10 @@ public class CurrencyApiThread extends Thread {
                 JSONObject data = (JSONObject) jsonObj.get("RAW");
                 for (String currency : currencyString.split(",")) {
                     JSONObject currencyInformationObject = (JSONObject) data.get(currency);
-                    List<CurrencyInformationModel> currencyInformationModels = new ArrayList<>();
+                    List<CurrencyInformation> currencyInformationModels = new ArrayList<>();
                     for (String classicCurrency : toConvertCurrencyString.split(",")) {
                         JSONObject currencyInformationObject2 = (JSONObject) currencyInformationObject.get(classicCurrency);
-                        CurrencyInformationModel currencyInformationModel = new CurrencyInformationModel();
+                        CurrencyInformation currencyInformationModel = new CurrencyInformation();
                         currencyInformationModel.setConvertedTo(ClassicCurrency.valueOf(classicCurrency));
                         currencyInformationModel.setPrice(Double.parseDouble(currencyInformationObject2.get("PRICE").toString()));
                         currencyInformationModel.setMedian(Double.parseDouble(currencyInformationObject2.get("MEDIAN").toString()));
@@ -182,7 +182,7 @@ public class CurrencyApiThread extends Thread {
                         currencyInformationModel.setLowHour(Double.parseDouble(currencyInformationObject2.get("LOWHOUR").toString()));
                         currencyInformationModels.add(currencyInformationModel);
                     }
-                    CurrencyModel currencyModel = currencyService.findBySymbol(currency);
+                    CryptoCurrency currencyModel = currencyService.findBySymbol(currency);
                     currencyModel.setInformation(currencyInformationModels);
                     currencyService.save(currencyModel);
                 }

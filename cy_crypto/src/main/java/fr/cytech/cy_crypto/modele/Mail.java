@@ -25,7 +25,7 @@ import lombok.Setter;
 @Entity(name = "mail")
 @Table(name = "mail")
 @Getter @Setter
-public class MailModel {
+public class Mail {
 
     @Id
     @Column(name = "id", unique = true)
@@ -40,13 +40,13 @@ public class MailModel {
     @JoinTable( name = "mail_association_receivers",
                 joinColumns = {@JoinColumn(name = "mail_id") },
                 inverseJoinColumns = { @JoinColumn(name = "receiver_id") })
-    private List<UserModel> receivers;  
+    private List<User> receivers;  
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinTable( name = "mail_association_sender",
                 joinColumns = {@JoinColumn(name = "mail_id") },
                 inverseJoinColumns = { @JoinColumn(name = "sender_id") })
-    private UserModel sender;
+    private User sender;
 
     @Column(name = "subject", unique = true)
     @Size(min = 1, message = "Field required !")
@@ -59,5 +59,5 @@ public class MailModel {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "previousMail")
-    private MailModel previousMail;
+    private Mail previousMail;
 }

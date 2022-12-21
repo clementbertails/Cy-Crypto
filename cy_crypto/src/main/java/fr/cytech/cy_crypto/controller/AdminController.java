@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.cytech.cy_crypto.modele.Role;
-import fr.cytech.cy_crypto.modele.UserModel;
+import fr.cytech.cy_crypto.modele.User;
 import fr.cytech.cy_crypto.services.UserService;
 
 @Controller
@@ -37,7 +37,7 @@ public class AdminController    {
 
     @PostMapping("/addAdmin")
     public String addAdmin(@RequestParam Long id, Model model){
-        UserModel user = adminService.find(id);
+        User user = adminService.find(id);
         user.setRole(Role.ADMIN);
         adminService.save(user);
         model.addAttribute("addAdmin", true);
@@ -46,7 +46,7 @@ public class AdminController    {
 
     @PostMapping("/removeAdmin")
     public String removeAdmin(@RequestParam Long id, Model model) {
-        UserModel user = adminService.find(id);
+        User user = adminService.find(id);
         user.setRole(Role.USER);
         adminService.save(user);
         model.addAttribute("removedAdmin", true);
@@ -55,7 +55,7 @@ public class AdminController    {
 
     @PostMapping("/removeUser")
     public String removeUser(@RequestParam Long id, Model model) {
-        UserModel user = adminService.find(id);
+        User user = adminService.find(id);
         adminService.delete(user);
         model.addAttribute("deletedUser", true);
         return "manage_users";

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fr.cytech.cy_crypto.modele.Role;
-import fr.cytech.cy_crypto.modele.UserModel;
+import fr.cytech.cy_crypto.modele.User;
 import fr.cytech.cy_crypto.services.UserService;
 
 @Controller
@@ -45,7 +45,7 @@ public class MainController {
             return "redirect:/user/home";
         }
         if (userService.allSigninParams(allParams)) {
-            UserModel user = userService.find(allParams.get("login"));
+            User user = userService.find(allParams.get("login"));
             if (user == null || !BCrypt.checkpw(allParams.get("password"), user.getPassword())) {
                 rAttributes.addAttribute("cannotSignin", true);
                 return "redirect:/signin";
@@ -80,7 +80,7 @@ public class MainController {
                 } else {
                     if (userService.checkedPassword(allParams.get("password"))) {
                         if (userService.checkedEmail(allParams.get("email"))) {
-                            UserModel user = new UserModel();
+                            User user = new User();
                             user.setName(allParams.get("name"));
                             user.setLastName(allParams.get("lastName"));
                             user.setUsername(allParams.get("username"));

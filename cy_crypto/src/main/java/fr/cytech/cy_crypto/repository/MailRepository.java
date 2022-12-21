@@ -6,15 +6,15 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import fr.cytech.cy_crypto.modele.MailModel;
-import fr.cytech.cy_crypto.modele.UserModel;
+import fr.cytech.cy_crypto.modele.Mail;
+import fr.cytech.cy_crypto.modele.User;
 
 @Repository
-public interface MailRepository extends JpaRepository<MailModel, Long>{
+public interface MailRepository extends JpaRepository<Mail, Long>{
 
-    public List<MailModel> findAllByDate(Date date);
+    public List<Mail> findAllByDate(Date date);
     
-    public List<MailModel> findAllBySender(UserModel sender);
+    public List<Mail> findAllBySender(User sender);
 
-    public List<MailModel> findAllByReceivers(UserModel receivers);
+    public List<Mail> findAllByReceivers(User receivers);
 }

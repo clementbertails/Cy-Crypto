@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import fr.cytech.cy_crypto.modele.MailModel;
-import fr.cytech.cy_crypto.modele.UserModel;
+import fr.cytech.cy_crypto.modele.Mail;
+import fr.cytech.cy_crypto.modele.User;
 import fr.cytech.cy_crypto.services.MailService;
 import fr.cytech.cy_crypto.services.UserService;
 
@@ -91,7 +91,7 @@ public class UserController {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
         }
-        UserModel user = (UserModel) request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute("user");
         model.addAttribute("mails", mailService.findAllByAttribute("receivers", user));
         return "mailbox";
     }
@@ -103,13 +103,13 @@ public class UserController {
             return "redirect:/signin";
         }
         if (mailService.checkMailParams(allParams)) {
-            MailModel mail = new MailModel();
+            Mail mail = new Mail();
             mail.setSubject(allParams.get("subject"));
             mail.setContent(allParams.get("content"));
-            mail.setSender((UserModel) request.getSession().getAttribute("user"));
-            List<UserModel> receivers = new ArrayList<UserModel>();
+            mail.setSender((User) request.getSession().getAttribute("user"));
+            List<User> receivers = new ArrayList<User>();
             for(String receiverAttribute : allParams.get("receivers").split(",")) {
-                UserModel receiverUser = userService.find(receiverAttribute);
+                User receiverUser = userService.find(receiverAttribute);
                 if (receiverUser != null) {
                     receivers.add(receiverUser);
                 }
@@ -154,7 +154,7 @@ public class UserController {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
         } else {
-            UserModel user = (UserModel) request.getSession().getAttribute("user");
+            User user = (User) request.getSession().getAttribute("user");
             if (userService.allUpdateInformationsParams(allParams)) {
                 if (userService.checkedEmail(allParams.get("email"))) {
                     if (userService.find(allParams.get("username")) != null && !allParams.get("username").equals(user.getUsername())) {
@@ -193,7 +193,7 @@ public class UserController {
             return "redirect:/signin";
         } else {
 
-            UserModel user = (UserModel) request.getSession().getAttribute("user");
+            User user = (User) request.getSession().getAttribute("user");
             if (BCrypt.checkpw(allParams.get("lastPassword"), user.getPassword())) {
                 if (!allParams.get("password").equals(allParams.get("passwordConf"))) {
                     rAttributes.addAttribute("diffPassword", true);

@@ -9,8 +9,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.cytech.cy_crypto.modele.MailModel;
-import fr.cytech.cy_crypto.modele.UserModel;
+import fr.cytech.cy_crypto.modele.Mail;
+import fr.cytech.cy_crypto.modele.User;
 import fr.cytech.cy_crypto.repository.MailRepository;
 
 @Service
@@ -20,28 +20,28 @@ public class MailService {
     private MailRepository mailRepository;
 
     @Transactional
-    public MailModel find(Long id) {
+    public Mail find(Long id) {
         return mailRepository.findById(id).isPresent() ? mailRepository.findById(id).get() : null;
     }
 
-    public MailModel find(int id){
+    public Mail find(int id){
         return find((long) id);
     }
     
     @Transactional
-    public List<MailModel> findAll() {
+    public List<Mail> findAll() {
         return mailRepository.findAll();
     }
 
     @Transactional
-    public List<MailModel> findAllByAttribute(String attribute, Object value){
+    public List<Mail> findAllByAttribute(String attribute, Object value){
         try {
             switch (attribute) {
                 case "sender":
-                    return mailRepository.findAllBySender((UserModel) value);
+                    return mailRepository.findAllBySender((User) value);
     
                 case "receivers":
-                    return mailRepository.findAllByReceivers((UserModel) value);
+                    return mailRepository.findAllByReceivers((User) value);
     
                 case "date":
                     return mailRepository.findAllByDate((Date) value);
@@ -57,12 +57,12 @@ public class MailService {
     }
 
     @Transactional
-    public void save(MailModel mail) {
+    public void save(Mail mail) {
         mailRepository.save(mail);
     }
 
     @Transactional
-    public void delete(MailModel mail) {
+    public void delete(Mail mail) {
         mailRepository.delete(mail);
     }
     

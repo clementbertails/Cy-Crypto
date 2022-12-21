@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.cytech.cy_crypto.modele.Role;
-import fr.cytech.cy_crypto.modele.UserModel;
+import fr.cytech.cy_crypto.modele.User;
 import fr.cytech.cy_crypto.repository.UserRepository;
 
 @Service
@@ -20,7 +20,7 @@ public class UserService {
     private UserRepository userRepository;
 
     @Transactional
-    public UserModel find(Object user) {
+    public User find(Object user) {
         try {
             switch (user.getClass().getSimpleName()) {
                 case "Long":
@@ -39,7 +39,7 @@ public class UserService {
                             : null;
 
                 case "UserModel":
-                    return (UserModel) user;
+                    return (User) user;
 
                 default:
                     return null;
@@ -51,12 +51,12 @@ public class UserService {
     }
 
     @Transactional
-    public List<UserModel> findAll() {
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
     @Transactional
-    public List<UserModel> findAllByAttribute(String attribute, Object value){
+    public List<User> findAllByAttribute(String attribute, Object value){
         switch (attribute) {
             case "role":
                 try {
@@ -85,12 +85,12 @@ public class UserService {
     }
 
     @Transactional
-    public void save(UserModel user) {
+    public void save(User user) {
         userRepository.save(user);
     }
 
     @Transactional
-    public void delete(UserModel user) {
+    public void delete(User user) {
         userRepository.delete(user);
     }
 

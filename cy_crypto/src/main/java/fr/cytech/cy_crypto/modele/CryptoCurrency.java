@@ -17,11 +17,11 @@ import lombok.Setter;
 @Entity(name = "currency")
 @Table(name = "currency")
 @Getter @Setter 
-public class CurrencyModel {
+public class CryptoCurrency {
     
     @Id
     @Column(name = "id", unique = true)
-    private String id;
+    private Long id;
 
     @Column(name = "symbol", unique = true)
     private String symbol;
@@ -36,11 +36,11 @@ public class CurrencyModel {
     @JoinTable( name = "currency_history_association",
                 joinColumns = {@JoinColumn(name = "currency_id", nullable = false)},
                 inverseJoinColumns = {@JoinColumn(name = "history_id", nullable = false)})
-    private List<CurrencyHistoryModel> history;
+    private List<CurrencyHistory> history;
 
     @OneToMany( cascade = CascadeType.ALL)
     @JoinTable( name = "currency_information_association",
                 joinColumns = {@JoinColumn(name = "currency_id", nullable = false)},
                 inverseJoinColumns = {@JoinColumn(name = "information_id", nullable = false)})
-    private List<CurrencyInformationModel> information;
+    private List<CurrencyInformation> information;
 }
