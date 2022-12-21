@@ -37,8 +37,7 @@ public class UserController {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
         }
-        // Favourite list
-        // mail
+        // favorite list
         // instant message with admins
         // manage profile
         return "user_home";
@@ -50,24 +49,24 @@ public class UserController {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
         }
-        // Favourite list
+        // favorite list
         // mail
         // instant message with admins
         // manage profile
         return "currencies";
     }
 
-    @GetMapping("/currencies/favourites")
-    public String userFavourites(HttpServletRequest request, RedirectAttributes rAttributes){
+    @GetMapping("/currencies")
+    public String userFavoritesCrypto(HttpServletRequest request, RedirectAttributes rAttributes){
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
         }
-        return "add_favourite_currency";
+        return "currencies";
     }
 
-    @PostMapping("/currencies/addfavourites")
-    public String addFavourite(HttpServletRequest request, RedirectAttributes rAttributes){
+    @PostMapping("/currencies/addfavorites")
+    public String addFavoriteCrypto(HttpServletRequest request, RedirectAttributes rAttributes){
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
@@ -76,8 +75,8 @@ public class UserController {
         }
     }
 
-    @PostMapping("/currencies/removefavourites")
-    public String removeFavourite(HttpServletRequest request, RedirectAttributes rAttributes){
+    @PostMapping("/currencies/removefavorites")
+    public String removeFavoriteCrypto(HttpServletRequest request, RedirectAttributes rAttributes){
         if (request.getSession().getAttribute("user") == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";

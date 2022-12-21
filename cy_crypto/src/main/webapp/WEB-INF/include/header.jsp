@@ -15,7 +15,7 @@
                 <ul class="nav justify-content-start mb-md-0">
                   <li><a href="/user/home" class="nav-link px-2 text-secondary">Home</a></li>
                   <li><a href="/user/mail" class="nav-link px-2 text-white">Mail</a></li>
-                  <li><a href="/user/currencies" class="nav-link px-2 text-white">Currencies & Favourites</a></li>
+                  <li><a href="/user/currencies" class="nav-link px-2 text-white">Currencies & favorites</a></li>
                   <li><a href="/user/manage" class="nav-link px-2 text-white">Account informations</a></li>
                 </ul>
               </c:when>
