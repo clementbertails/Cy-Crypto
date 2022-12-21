@@ -38,8 +38,6 @@ public class UserController {
             return "redirect:/signin";
         }
         // favorite list
-        // instant message with admins
-        // manage profile
         return "user_home";
     }
 
@@ -50,9 +48,7 @@ public class UserController {
             return "redirect:/signin";
         }
         // favorite list
-        // mail
-        // instant message with admins
-        // manage profile
+        // Crypto list
         return "currencies";
     }
 
