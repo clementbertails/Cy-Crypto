@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en">
     <c:import url="/WEB-INF/include/head.jsp"/>
+    <script src="/js/currency.js"></script>
     <body class="d-flex flex-column h-100">
         <c:import url="/WEB-INF/include/header.jsp"/>
         <div class="container">
@@ -15,11 +16,13 @@
                             <div class="container">
                                 <div class="col offset-4">
                                     <c:forEach items="${sessionScope.user.favoriteCurrencies}" var="currency">
-                                        <fieldset>
-                                            <img src="/assets/currency_icon/${currency.symbol}.png" width="50" height="50">
-                                            <c:out value="${currency.symbol}"/>
-                                            <c:out value="${currency.name}"/>
-                                        </fieldset>
+                                        <img src="/assets/currency_icon/${currency.symbol}.png" width="50" height="50">
+                                        <c:out value="${currency.symbol}"/>
+                                        <c:out value="${currency.name}"/>
+                                        <form action="/user/removefavoritescrypto" method="post">
+                                            <input type="hidden" id="symbol" name="symbol" value="${currency.symbol}"/>
+                                            <button class="w-100 btn btn-lg btn-primary" type="submit" name="rmCurrency" id="rmCurrency">REMOVE</button>
+                                        </form>
                                     </c:forEach>
                                 </div>
                             </div>
@@ -32,11 +35,21 @@
                         <div class="container">
                             <div class="col offset-4">
                                 <c:forEach items="${requestScope.currencies}" var="currency">
-                                    <fieldset>
+                                    <c:set var="notContains" value="true" />
+                                    <c:forEach var="favorite" items="${sessionScope.user.favoriteCurrencies}">
+                                        <c:if test="${favorite.symbol == currency.symbol}">
+                                            <c:set var="notContains" value="false" />
+                                        </c:if>
+                                    </c:forEach>
+                                    <c:if test="${notContains}">
                                         <img src="/assets/currency_icon/${currency.symbol}.png" width="50" height="50">
                                         <c:out value="${currency.symbol}"/>
                                         <c:out value="${currency.name}"/>
-                                    </fieldset>
+                                        <form action="/user/addfavoritescrypto" method="post">
+                                            <input type="hidden" id="symbol" name="symbol" value="${currency.symbol}"/>
+                                            <button class="w-100 btn btn-lg btn-primary" type="submit" name="addCurrency" id="addCurrency">ADD</button>
+                                        </form>
+                                    </c:if>
                                 </c:forEach>
                             </div>
                         </div>

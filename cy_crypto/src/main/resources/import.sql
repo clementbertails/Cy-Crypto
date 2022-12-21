@@ -15,3 +15,4 @@ INSERT INTO currency (id, name, symbol, icon_path) VALUES (20, 'Dogecoin', 'DOGE
 
 INSERT INTO user (id, name, last_name, username, email, password, role, favorite_conversion) VALUES (1, 'Clément', 'Bertails', 'espath', 'clement.bertails@gmail.com', '$2a$10$I1kFWTIBGSBmyklv9GBQgO8g0z1VaoRELRFBHcI0fhMSwkQmIpE5i', "ADMIN", "EUR");
 INSERT INTO user (id, name, last_name, username, email, password, role, favorite_conversion) VALUES (2, 'Test', 'Test', 'test', 'test@example.fr', '$2a$10$x1KkCHsN1W.gP8cUGVhqYuuFY5b/EEhpPRPWtJt8Mlign1QIv41ZS', "USER", "USD");
+INSERT INTO user (id, name, last_name, username, email, password, role, favorite_conversion) VALUES (3, 'admin', 'admin', 'admin', 'admin@example.fr', '$2a$10$x1KkCHsN1W.gP8cUGVhqYuuFY5b/EEhpPRPWtJt8Mlign1QIv41ZS', "ADMIN", "USD");

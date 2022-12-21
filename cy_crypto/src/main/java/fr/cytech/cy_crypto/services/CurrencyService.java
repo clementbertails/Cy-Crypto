@@ -44,6 +44,11 @@ public class CurrencyService {
     }
 
     @Transactional
+    public boolean existsBySymbol(String symbol) {
+        return currencyRepository.existsBySymbol(symbol);
+    }
+
+    @Transactional
     public List<CryptoCurrency> findAll() {
         return currencyRepository.findAll();
     }

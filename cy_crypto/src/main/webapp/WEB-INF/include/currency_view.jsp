@@ -29,7 +29,7 @@
                     <td>highHour</td>
                     <td>lowHour</td>
                 </tr>
-                <c:forEach items="${requestScope.currency.information}" var="information">
+                <c:forEach items="${requestScope.currency.getInformation()}" var="information">
                     <c:if test="${information.convertedTo.toString()} == ${sessionScope.user.favoriteConversion.toString()}">
                         <tr>
                             <td><c:out value="${information.price}"/></td>
@@ -61,8 +61,8 @@
                     <td>VolumeFrom</td>
                     <td>VolumeTo</td>
                 </tr>
-                <c:forEach items="${requestScope.currency.history}" var="history">
-                    <c:if test="${information.convertedTo} == ${sessionScope.user.favoriteConversion}">
+                <c:forEach items="${requestScope.currency.getHistory()}" var="history">
+                    <c:if test="${history.convertedTo} == ${sessionScope.user.favoriteConversion}">
                         <tr>
                             <td><c:out value="${history.time}"/></td>
                             <td><c:out value="${history.high}"/></td>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import fr.cytech.cy_crypto.model.CryptoCurrency;
 import fr.cytech.cy_crypto.model.Mail;
 import fr.cytech.cy_crypto.model.User;
 import fr.cytech.cy_crypto.services.CurrencyService;
@@ -62,29 +63,44 @@ public class UserController {
         return "currencies";
     }
 
-    @PostMapping("/addfavoritescrypto/{currency}")
-    public String addFavoriteCrypto(HttpServletRequest request, RedirectAttributes rAttributes, @RequestParam Map<String, String> params){
+    @PostMapping(path = "/addfavoritescrypto")
+    public String addFavoriteCrypto(HttpServletRequest request, RedirectAttributes rAttributes, @RequestParam String symbol){
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
         }
-        params.entrySet().forEach(entry->{
-            System.out.println(entry.getKey() + "/" + entry.getValue());
-        });
-        // if (params.get("currency") != null) {
-        //     user.getFavoriteCurrencies().add(params.get("currency"));
-        //     userService.save(user);
-        // }
-
+        if (symbol != null && currencyService.existsBySymbol(symbol)) {
+            boolean alreadyIn = false;
+            for (CryptoCurrency currency: user.getFavoriteCurrencies()) {
+                if (currency.getSymbol().equals(symbol)) {
+                    alreadyIn = true;
+                    break;
+                }
+            }
+            if (!alreadyIn) {
+                user.getFavoriteCurrencies().add(currencyService.find(symbol));
+                userService.save(user);
+            }
+        }
         return "redirect:/user/currencies";
     }
 
     @PostMapping("/removefavoritescrypto")
-    public String removeFavoriteCrypto(HttpServletRequest request, RedirectAttributes rAttributes){
-        if (request.getSession().getAttribute("user") == null) {
+    public String removeFavoriteCrypto(HttpServletRequest request, RedirectAttributes rAttributes, @RequestParam String symbol){
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
+        }
+        if (symbol != null && currencyService.existsBySymbol(symbol)) {
+            for (CryptoCurrency currency: user.getFavoriteCurrencies()) {
+                if (currency.getSymbol().equals(symbol)) {
+                    user.getFavoriteCurrencies().remove(currency);
+                    userService.save(user);
+                    break;
+                }
+            }
         }
         return "redirect:/user/currencies";
     }

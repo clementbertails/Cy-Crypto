@@ -90,6 +90,7 @@ public class UserService {
         userRepository.delete(user);
     }
 
+    @Transactional
     public boolean existUser(String username, String email) {
         return userRepository.existsByUsername(username) || userRepository.existsByEmail(email);
     }

@@ -11,4 +11,5 @@ import fr.cytech.cy_crypto.model.CryptoCurrency;
 public interface CurrencyRepository extends JpaRepository<CryptoCurrency, Long> {
 
     public Optional<CryptoCurrency> findBySymbol(String symbol);
+    public boolean existsBySymbol(String symbol);
 }
