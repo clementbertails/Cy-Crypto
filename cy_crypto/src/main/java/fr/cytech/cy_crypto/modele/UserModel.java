@@ -1,10 +1,17 @@
 package fr.cytech.cy_crypto.modele;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,5 +42,12 @@ public class UserModel {
     private String password;
 
     @Column(name = "role")
+    // @Enumerated
     private Role role;
+
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable( name = "favorite_currencies_association",
+                joinColumns = {@JoinColumn(name = "user_id") },
+                inverseJoinColumns = { @JoinColumn(name = "currency_id") })
+    private List<CurrencyModel> favoriteCurrencies;
 }
