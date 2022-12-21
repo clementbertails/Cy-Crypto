@@ -25,6 +25,7 @@
                         </div>
                         <div class="row py-1">
                             <input type="submit" value="Send"/>
+                        </div>
                     </form>
 
                     <c:if test="${param.mailSent}">

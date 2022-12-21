@@ -2,9 +2,13 @@
 <div>
     <c:choose>
         <c:when test="${requestScope.currency == null}">
-            <p>No currency found.</p>
-            <p>Please add favorites :</p>
-            <button>Redirect to Add Favorite (/user/currencies)</button>
+            <div class="row text-center">
+                <h5 class="h5 mb-3 fw-normal">No currency found.</h5>
+                <h5 class="h5 mb-3 fw-normal">Please add favorites :</h5>
+                <div class="mx-auto col-4">
+                    <a href="/user/currencies" class="nav-link px-2 text-white"><button class="w-100 btn btn-lg btn-primary">Redirect to Add Favorite</button></a>
+                </div>
+            </div>
         </c:when>
         <c:otherwise>    
             <h3>Actual information of <c:out value="${requestScope.currency.symbol}"/></h3>
