@@ -4,9 +4,11 @@
     <c:import url="/WEB-INF/include/head.jsp"/>
     <body class="d-flex flex-column h-100">
         <c:import url="/WEB-INF/include/header.jsp"/>
-        <main class="flex-shrink-0">
-            Welcome <c:out value="${sessionScope.user.username}" /> to cy-crypto tracker !
-        </main>
+        <div class="container">
+            <main class="flex-shrink-0">
+                Welcome to cy-crypto tracker !
+            </main>
+        </div>
         <c:import url="/WEB-INF/include/footer.jsp"/>
     </body>
 </html>

@@ -6,12 +6,12 @@
         <c:import url="/WEB-INF/include/header.jsp"/>
 
         <main>
-            <div class="row py-1 text-center">
+            <div class="row text-center">
                 <h5 class="h5 mb-3 fw-normal">Welcome <c:out value="${sessionScope.user.username}"/></h5>
             </div>
             
             <div class="row">
-                <div class="col-8">
+                <div class="col-7 offset-1">
                     <c:import url="/WEB-INF/include/currency_view.jsp"/>
                 </div>
 

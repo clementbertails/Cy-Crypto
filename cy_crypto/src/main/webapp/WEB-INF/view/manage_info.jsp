@@ -5,7 +5,7 @@
     <body class="d-flex flex-column h-100">
         <c:import url="/WEB-INF/include/header.jsp"/>
 
-        <div class="container py-3">
+        <div class="container col-8 py-3">
             <main>
                 <div class="py-5 text-center">
                     <h1 class="h3 mb-3 fw-normal">Welcome <c:out value="${sessionScope.user.username}"/></h1>

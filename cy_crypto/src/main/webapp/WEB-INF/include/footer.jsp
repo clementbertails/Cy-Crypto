@@ -11,16 +11,16 @@
       <div class="col-2 text-center">
         <h5>Mail</h5>
         <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+          <li class="nav-item mb-2">bertailscl@cy-tech.fr</li>
+          <li class="nav-item mb-2">lasgleizes@cy-tech.fr</li>
         </ul>
       </div>
 
       <div class="col-2 text-center">
         <h5>Github</h5>
         <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+          <li class="nav-item mb-2"><a href="https://github.com/clementbertails" class="nav-link p-0 text-muted">Bertails</a></li>
+          <li class="nav-item mb-2"><a href="https://github.com/LasgleizesDavid" class="nav-link p-0 text-muted">Lasgleizes</a></li>
         </ul>
       </div>
     </div>
