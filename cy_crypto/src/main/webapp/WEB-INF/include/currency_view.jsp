@@ -29,15 +29,15 @@
                     <td>highHour</td>
                     <td>lowHour</td>
                 </tr>
-                <c:forEach items="${requestScope.currency.getInformation()}" var="information">
-                    <c:if test="${information.convertedTo.toString()} == ${sessionScope.user.favoriteConversion.toString()}">
+                <c:forEach items="${requestScope.currency.information}" var="information">
+                    <c:if test="${information.convertedTo == sessionScope.user.favoriteConversion}">
                         <tr>
                             <td><c:out value="${information.price}"/></td>
                             <td><c:out value="${information.median}"/></td>
                             <td><c:out value="${information.volumeDay}"/></td>
                             <td><c:out value="${information.volumeDayTo}"/></td>
-                            <td><c:out value="${information.volume24Hour}"/></td>
-                            <td><c:out value="${information.volume24HourTo}"/></td>
+                            <td><c:out value="${information.volume24hour}"/></td>
+                            <td><c:out value="${information.volume24hourTo}"/></td>
                             <td><c:out value="${information.openDay}"/></td>
                             <td><c:out value="${information.highDay}"/></td>
                             <td><c:out value="${information.lowDay}"/></td>
@@ -61,16 +61,16 @@
                     <td>VolumeFrom</td>
                     <td>VolumeTo</td>
                 </tr>
-                <c:forEach items="${requestScope.currency.getHistory()}" var="history">
-                    <c:if test="${history.convertedTo} == ${sessionScope.user.favoriteConversion}">
+                <c:forEach items="${requestScope.currency.history}" var="history">
+                    <c:if test="${history.convertedTo.toString() == sessionScope.user.favoriteConversion.toString()}">
                         <tr>
                             <td><c:out value="${history.time}"/></td>
                             <td><c:out value="${history.high}"/></td>
                             <td><c:out value="${history.low}"/></td>
                             <td><c:out value="${history.open}"/></td>
                             <td><c:out value="${history.close}"/></td>
-                            <td><c:out value="${history.volumeFrom}"/></td>
-                            <td><c:out value="${history.volumeTo}"/></td>
+                            <td><c:out value="${history.volumefrom}"/></td>
+                            <td><c:out value="${history.volumeto}"/></td>
                         </tr>
                     </c:if>
                 </c:forEach>

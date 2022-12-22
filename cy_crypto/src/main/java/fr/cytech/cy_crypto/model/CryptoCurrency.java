@@ -11,6 +11,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,12 +36,14 @@ public class CryptoCurrency {
     private String iconPath;
 
     @OneToMany( cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable( name = "currency_history_association",
                 joinColumns = {@JoinColumn(name = "currency_id", nullable = false)},
                 inverseJoinColumns = {@JoinColumn(name = "history_id", nullable = false)})
     private List<CurrencyHistory> history;
 
     @OneToMany( cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable( name = "currency_information_association",
                 joinColumns = {@JoinColumn(name = "currency_id", nullable = false)},
                 inverseJoinColumns = {@JoinColumn(name = "information_id", nullable = false)})

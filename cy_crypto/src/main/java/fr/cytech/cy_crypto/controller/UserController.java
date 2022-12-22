@@ -43,12 +43,14 @@ public class UserController {
             rAttributes.addAttribute("notLogged", true);
             return "redirect:/signin";
         }
+        CryptoCurrency currency = null;
         if (allParams.get("currency") != null) {
-            model.addAttribute("currency", currencyService.find(allParams.get("currency")));
+            currency = currencyService.find(allParams.get("currency"));
         } else if (user.getFavoriteCurrencies().size() > 0) {
-            model.addAttribute("currency", currencyService.find(user.getFavoriteCurrencies().get(0)));
-        } else {
-            model.addAttribute("currency", null);
+            currency = currencyService.find(user.getFavoriteCurrencies().get(0));
+        }
+        if (currency != null) {
+            model.addAttribute("currency", currency);
         }
         return "user_home";
     }

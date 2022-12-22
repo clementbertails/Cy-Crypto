@@ -84,7 +84,7 @@ public class CurrencyApiThread extends Thread {
             JSONParser parser = new JSONParser();
             try {
                 System.err.println("Parsing history for " + cryptoCurrency + "/" + toConvertCurrency);
-                List<CurrencyHistory> currencyHistoryModels = new ArrayList<>();
+                List<CurrencyHistory> currencyHistoryModelstmp = new ArrayList<>();
                 JSONObject jsonObj = (JSONObject) parser.parse(new InputStreamReader(connection.getInputStream()));
                 JSONObject data = (JSONObject) jsonObj.get("Data");
                 JSONArray history = (JSONArray) data.get("Data");
@@ -100,13 +100,15 @@ public class CurrencyApiThread extends Thread {
                         currencyHistoryModel.setVolumefrom(Double.parseDouble(historyObject.get("volumefrom").toString()));
                         currencyHistoryModel.setVolumeto(Double.parseDouble(historyObject.get("volumeto").toString()));
                         currencyHistoryModel.setClose(Double.parseDouble(historyObject.get("close").toString()));
-                        currencyHistoryModels.add(currencyHistoryModel);
+                        currencyHistoryModelstmp.add(currencyHistoryModel);
                     } catch (Exception e) {
                         System.err.println("History Thread : Error while parsing history for " + cryptoCurrency + "/" + toConvertCurrency + " : " + e.getMessage());
                     }
                     
                 }
                 CryptoCurrency currencyModel = currencyService.find(cryptoCurrency);
+                List<CurrencyHistory> currencyHistoryModels = currencyModel.getHistory();
+                currencyHistoryModels.addAll(currencyHistoryModelstmp);
                 currencyModel.setHistory(currencyHistoryModels);
                 currencyService.save(currencyModel);
             } catch (ParseException e) {
