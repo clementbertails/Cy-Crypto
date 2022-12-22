@@ -1,18 +1,38 @@
 <%@ include file="/WEB-INF/include/jstl.jsp"%>
 <!DOCTYPE html>
-<html class="h-100" lang="en">
+<html lang="en" class="h-100">
     <c:import url="/WEB-INF/include/head.jsp"/>
     <body class="d-flex flex-column h-100">
         <c:import url="/WEB-INF/include/header.jsp"/>
 
-        <main>
-            <form action="/admin/addCrypto" method="post" enctype="multipart/form-data">
-                <input type="text" name="symbol" id="symbol" placeholder="Symbol" required>
-                <input type="text" name="name" id="name" placeholder="name" required>
-                <input type="file" name="crypto_icon" id="crypto_icon" accept="image/png" unique required>
-                <button type="submit">Add crypto-currency</button>
-            </form>
-        </main>
+        <div class="container py-3">
+            <main>
+                <div class="container mx-auto col-6">
+                    <form action="/admin/addCrypto" method="post" enctype="multipart/form-data">
+                        <div class="row mt-5 gy-3">
+                            
+                            <div class="col-12">
+                                <label for="login">Symbol</label>
+                                <input type="text" class="form-control" name="symbol" id="symbol" placeholder="Symbol" required>
+                            </div>
+                            
+                            <div class="col-12">
+                                <label for="password">Name</label>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="name" required>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="password">Logo</label>
+                                <input type="file" class="form-control" name="crypto_icon" id="crypto_icon" accept="image/png" unique required>
+                            </div>
+
+                            <button class="w-100 btn btn-lg btn-primary" type="submit">Add crypto-currency</button>
+
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </div>
         <c:import url="/WEB-INF/include/footer.jsp"/>
     </body>
 </html>
