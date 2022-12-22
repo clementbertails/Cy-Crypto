@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -98,7 +99,7 @@ public class AdminController    {
     }
 
     @GetMapping("/manage")
-    public String manage_users(HttpServletRequest request, RedirectAttributes rAttributes){
+    public String manage_users(HttpServletRequest request, RedirectAttributes rAttributes, Model model){
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             rAttributes.addAttribute("notLogged", true);
@@ -108,11 +109,12 @@ public class AdminController    {
             rAttributes.addAttribute("notAdmin", true);
             return "redirect:/user/home";
         }
+        model.addAttribute("users", userService.findAll());
         return "manage_users";
     }
 
     @PostMapping("/addAdmin")
-    public String addAdmin(HttpServletRequest request, RedirectAttributes rAttributes, @RequestParam("id") Long id){
+    public String addAdmin(HttpServletRequest request, RedirectAttributes rAttributes, @RequestParam Long addedAdmin){
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             rAttributes.addAttribute("notLogged", true);
@@ -122,7 +124,7 @@ public class AdminController    {
             rAttributes.addAttribute("notAdmin", true);
             return "redirect:/user/home";
         }
-        User toAdd = userService.find(id);
+        User toAdd = userService.find(addedAdmin);
         toAdd.setRole(Role.ADMIN);
         userService.save(toAdd);
         rAttributes.addAttribute("addAdmin", true);
@@ -130,7 +132,7 @@ public class AdminController    {
     }
 
     @PostMapping("/removeAdmin")
-    public String removeAdmin(HttpServletRequest request, RedirectAttributes rAttributes, @RequestParam("id") Long id) {
+    public String removeAdmin(HttpServletRequest request, RedirectAttributes rAttributes, @RequestParam Long rmedAdmin) {
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             rAttributes.addAttribute("notLogged", true);
@@ -140,7 +142,7 @@ public class AdminController    {
             rAttributes.addAttribute("notAdmin", true);
             return "redirect:/user/home";
         }
-        User toRemove = userService.find(id);
+        User toRemove = userService.find(rmedAdmin);
         toRemove.setRole(Role.USER);
         userService.save(toRemove);
         rAttributes.addAttribute("removedAdmin", true);
@@ -148,7 +150,7 @@ public class AdminController    {
     }
 
     @PostMapping("/removeUser")
-    public String removeUser(HttpServletRequest request, RedirectAttributes rAttributes, @RequestParam("id") Long id) {
+    public String removeUser(HttpServletRequest request, RedirectAttributes rAttributes, @RequestParam Long deletedUser) {
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             rAttributes.addAttribute("notLogged", true);
@@ -158,7 +160,7 @@ public class AdminController    {
             rAttributes.addAttribute("notAdmin", true);
             return "redirect:/user/home";
         }
-        User toRemove = userService.find(id);
+        User toRemove = userService.find(deletedUser);
         userService.delete(toRemove);
         rAttributes.addAttribute("deletedUser", true);
         return "redirect:/admin/manage";
