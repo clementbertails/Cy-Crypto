@@ -11,7 +11,7 @@
             </div>
         </c:when>
         <c:otherwise>    
-            <h3>Actual information of <c:out value="${requestScope.currency.symbol}"/></h3>
+            <h3>Actual information of <c:out value="${requestScope.currency.symbol}"/>/<c:out value="${sessionScope.user.favoriteConversion}"/></h3>
             <table>
                 <tr>
                     <td>Price</td>
@@ -50,7 +50,7 @@
                     </c:if>
                 </c:forEach>
             </table>
-            <h3>History of <c:out value="${requestScope.currency.symbol}"/></h3>
+            <h3>History of <c:out value="${requestScope.currency.symbol}"/>/<c:out value="${sessionScope.user.favoriteConversion}"/></h3>
             <table>
                 <tr>
                     <td>Time</td>
