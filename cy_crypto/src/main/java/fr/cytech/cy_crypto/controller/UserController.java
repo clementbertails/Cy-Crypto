@@ -47,7 +47,7 @@ public class UserController {
         if (allParams.get("currency") != null) {
             currency = currencyService.find(allParams.get("currency"));
         } else if (user.getFavoriteCurrencies().size() > 0) {
-            currency = currencyService.find(user.getFavoriteCurrencies().get(0));
+            currency = currencyService.find(user.getFavoriteCurrencies().get(0).getSymbol());
         }
         if (currency != null) {
             model.addAttribute("currency", currency);
