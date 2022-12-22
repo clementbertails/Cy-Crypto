@@ -17,6 +17,9 @@
                   <li><a href="/user/mail" class="nav-link px-2 text-white">Mail</a></li>
                   <li><a href="/user/currencies" class="nav-link px-2 text-white">Currencies & favorites</a></li>
                   <li><a href="/user/manage" class="nav-link px-2 text-white">Account informations</a></li>
+                  <c:if test="${sessionScope.user.role == 'ADMIN'}">
+                    <li><a href="/admin" class="nav-link px-2 text-white">Admin</a></li>
+                  </c:if>
                 </ul>
               </c:when>
             </c:choose>

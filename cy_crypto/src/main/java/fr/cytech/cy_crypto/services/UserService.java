@@ -165,4 +165,25 @@ public class UserService {
         }
         return true;
     }
+
+    public boolean allAddCryptoParams(Map<String, String> allParams){
+        for (var entry : allParams.entrySet()) {
+            switch (entry.getKey()) {
+                case "symbol":
+                case "name":
+                case "crypto_icon":
+                    if (entry.getValue() == null || entry.getValue() == "") {
+                        return false;
+                    }
+
+                case "addCrypto":
+                    break;
+            
+                default:
+                    return false;
+            }
+        }
+        return true;
+    }
+    
 }
