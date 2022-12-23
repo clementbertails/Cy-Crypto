@@ -56,7 +56,6 @@ If you choose to replace the database, you have to compile the project manually 
 1. With Docker
 
 Host: localhost
-
 Port used: 2480
 
 2. With a text editor
@@ -64,7 +63,6 @@ Port used: 2480
 Do not forget to modify Cy-Crypto/cy_crypto/src/main/resources/application.yaml to fit your database.
 
 Host: localhost
-
 Port used: 8080
 
 3. Login
