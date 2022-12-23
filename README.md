@@ -35,7 +35,7 @@ Do not forget to modify Cy-Crypto/cy_crypto/src/main/resources/application.yaml 
 
 ## Database
 
-This project embeds a mariadb docker.
-You can also replace it with a Mysql database but don't forget to modify Cy-Crypto/cy_crypto/src/main/resources/application.yaml to fit your database.
-If you choose to replace the database, you have to compile the project manually and you can't use the docker.
+* This project embeds a mariadb docker.
+* You can also replace it with a Mysql database but don't forget to modify Cy-Crypto/cy_crypto/src/main/resources/application.yaml to fit your database.
+* If you choose to replace the database, you have to compile the project manually and you can't use the docker.
 
