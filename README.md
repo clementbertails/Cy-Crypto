@@ -67,6 +67,8 @@ Do not forget to modify Cy-Crypto/cy_crypto/src/main/resources/application.yaml 
 
 3. Login
 
+You can login with username or email.
+
 Create your own user or use one of the following :
 
 User:
