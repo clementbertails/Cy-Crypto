@@ -6,7 +6,8 @@ It allows to have access via a user account, to information (updated every minut
 
 ## Technologies
 
-This project uses the following technologies:
+This project uses the following technologies :
+
 Java 17
 
 Maven 3.8.6
