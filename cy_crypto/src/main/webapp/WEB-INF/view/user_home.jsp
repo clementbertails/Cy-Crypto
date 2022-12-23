@@ -9,7 +9,13 @@
             <div class="row text-center">
                 <h5 class="h5 mb-3 fw-normal">Welcome <c:out value="${sessionScope.user.username}"/></h5>
             </div>
-            
+
+            <c:if test="${param.notAdmin}">
+                <div class="py-2 text-center">
+                    <h1 class="h4 mb-3 fw-normal">You tried to reach a page without having the rights!</h1>
+                </div>
+            </c:if>
+
             <div class="row">
                 <div class="col-7 offset-1">
                     <c:import url="/WEB-INF/include/currency_view.jsp"/>
