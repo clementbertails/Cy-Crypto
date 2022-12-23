@@ -24,3 +24,18 @@ git clone https://github.com/clementbertails/Cy-Crypto.git
 ```bash
 cd Cy-Crypto
 ```
+3. Run the docker :
+```bash
+docker-compose up -d
+```
+
+Alternative :
+You can find the .jar at the root of the project.
+Do not forget to modify Cy-Crypto/cy_crypto/src/main/resources/application.yaml to fit your database.
+
+## Database
+
+This project embeds a mariadb docker.
+You can also replace it with a Mysql database but don't forget to modify Cy-Crypto/cy_crypto/src/main/resources/application.yaml to fit your database.
+If you choose to replace the database, you have to compile the project manually and you can't use the docker.
+
