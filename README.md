@@ -1,6 +1,7 @@
 # Cy-Crypto
 
 Cy-Crypto is a cryptocurrency tracker.
+
 It allows to have access via a user account, to information (updated every minute) on the selected crypto-currency as well as its history over 30 days.
 
 ## Technologies
@@ -30,8 +31,8 @@ docker-compose up -d
 ```
 
 Alternative :
-You can find the .jar at the root of the project.
-Do not forget to modify Cy-Crypto/cy_crypto/src/main/resources/application.yaml to fit your database.
+* You can find the .jar at the root of the project.
+* Do not forget to modify Cy-Crypto/cy_crypto/src/main/resources/application.yaml to fit your database.
 
 ## Database
 
