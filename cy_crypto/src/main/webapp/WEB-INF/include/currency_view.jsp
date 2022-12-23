@@ -129,7 +129,7 @@
                     </thead>
                     <tbody>
                         <c:forEach items="${requestScope.currency.history}" var="history">
-                            <c:if test="${history.convertedTo == sessionScope.user.favoriteConversion)}">
+                            <c:if test="${history.convertedTo == sessionScope.user.favoriteConversion}">
                                 <tr>
                                     <fmt:formatDate value="${history.time}" var="time" pattern="dd/MM/yyyy"/>
                                     <td><c:out value="${time}"/></td>
