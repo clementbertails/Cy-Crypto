@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fr.cytech.cy_crypto.model.User;
+import fr.cytech.cy_crypto.services.CurrencyService;
 import fr.cytech.cy_crypto.services.UserService;
 
 @Controller
@@ -25,8 +26,13 @@ public class MainController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CurrencyService currencyService;
+
     @GetMapping()
     public String getIndex(Model model){
+        model.addAttribute("currency", currencyService.find("BTC"));
+        model.addAttribute("currencies", currencyService.findAll());
         return "index";
     }
 

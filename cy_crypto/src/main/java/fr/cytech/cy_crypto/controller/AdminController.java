@@ -93,7 +93,7 @@ public class AdminController    {
             currencyService.save(currency);
             rAttributes.addAttribute("cryptoAdded", true);
         } else {
-            rAttributes.addAttribute("cryptoNotAdded", true);
+            rAttributes.addAttribute("cryptoAlreadyExist", true);
         }
         return "redirect:/admin/adminCrypto";
     }

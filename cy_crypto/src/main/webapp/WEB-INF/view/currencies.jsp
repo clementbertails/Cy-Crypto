@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en">
     <c:import url="/WEB-INF/include/head.jsp"/>
-    <script src="/js/currency.js"></script>
     <body class="d-flex flex-column h-100">
         <c:import url="/WEB-INF/include/header.jsp"/>
         <div class="container">
@@ -21,7 +20,7 @@
                                         <c:out value="${currency.name}"/>
                                         <form action="/user/removefavoritescrypto" method="post">
                                             <input type="hidden" id="symbol" name="symbol" value="${currency.symbol}"/>
-                                            <button class="w-100 btn btn-lg btn-primary" type="submit" name="rmCurrency" id="rmCurrency">REMOVE</button>
+                                            <button class="w-100 btn btn-lg btn-primary" type="submit" name="rmCurrency" id="rmCurrency">Remove</button>
                                         </form>
                                     </c:forEach>
                                 </div>
@@ -29,10 +28,10 @@
                         </c:if>
                     </Div>
                     <Div class="col">
-                        <div class="row py-1 text-center">
-                            <h4 class="h4 mb-3 fw-normal">Other currencies accessible from this site:</h4>
-                        </div>
                         <div class="container">
+                            <div class="row py-1 text-center">
+                                <h4 class="h4 mb-3 fw-normal">Other currencies accessible from this site:</h4>
+                            </div>
                             <div class="col offset-4">
                                 <c:forEach items="${requestScope.currencies}" var="currency">
                                     <c:set var="notContains" value="true" />
@@ -47,7 +46,7 @@
                                         <c:out value="${currency.name}"/>
                                         <form action="/user/addfavoritescrypto" method="post">
                                             <input type="hidden" id="symbol" name="symbol" value="${currency.symbol}"/>
-                                            <button class="w-100 btn btn-lg btn-primary" type="submit" name="addCurrency" id="addCurrency">ADD</button>
+                                            <button class="w-100 btn btn-lg btn-primary" type="submit" name="addCurrency" id="addCurrency">Add</button>
                                         </form>
                                     </c:if>
                                 </c:forEach>

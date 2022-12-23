@@ -7,7 +7,7 @@
 
         <main>
             <div class="row text-center">
-                <h5 class="h5 mb-3 fw-normal">Welcome <c:out value="${sessionScope.user.username}"/></h5>
+                <h1 class="h1 mb-3 fw-normal">Welcome <c:out value="${sessionScope.user.username}"/></h1>
             </div>
 
             <c:if test="${param.notAdmin}">

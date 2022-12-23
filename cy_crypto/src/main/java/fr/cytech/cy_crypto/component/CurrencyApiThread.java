@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -55,7 +56,7 @@ public class CurrencyApiThread extends Thread {
         historyCalls();
     }
 
-    @Scheduled(cron = "30 0 0 * * *")
+    @Scheduled(cron = "30 0 1 * * *")
     private void historyCalls() {
         System.out.println("History api calls...");
         List<CryptoCurrency> currencies = currencyService.findAll();
@@ -93,7 +94,7 @@ public class CurrencyApiThread extends Thread {
                         CurrencyHistory currencyHistoryModel = new CurrencyHistory();
                         JSONObject historyObject = (JSONObject) object;
                         currencyHistoryModel.setConvertedTo(ClassicCurrency.valueOf(toConvertCurrency));
-                        currencyHistoryModel.setTime(Long.parseLong(historyObject.get("time").toString()));
+                        currencyHistoryModel.setTime(new Date(Long.parseLong(historyObject.get("time").toString())*1000));
                         currencyHistoryModel.setHigh(Double.parseDouble(historyObject.get("high").toString()));
                         currencyHistoryModel.setLow(Double.parseDouble(historyObject.get("low").toString()));
                         currencyHistoryModel.setOpen(Double.parseDouble(historyObject.get("open").toString()));

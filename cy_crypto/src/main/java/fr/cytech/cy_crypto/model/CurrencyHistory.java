@@ -1,5 +1,7 @@
 package fr.cytech.cy_crypto.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -27,7 +29,7 @@ public class CurrencyHistory {
     private ClassicCurrency convertedTo;
 
     @Column(name = "time")
-    private Long time;
+    private Date time;
 
     @Column(name = "high")
     private Double high;

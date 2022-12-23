@@ -28,6 +28,24 @@
 
                             <button class="w-100 btn btn-lg btn-primary" type="submit">Add crypto-currency</button>
 
+                            <c:if test="${param.cryptoAdded}">
+                                <div class="alert alert-success" role="alert">
+                                    <p class="text-center">Crypto-currency added</p>
+                                </div>
+                            </c:if>
+
+                            <c:if test="${param.cryptoNotAdded}">
+                                <div class="alert alert-danger" role="alert">
+                                    <p class="text-center">Error : Crypto-currency can't be added</p>
+                                </div>
+                            </c:if>
+
+                            <c:if test="${param.cryptoAlreadyExist}">
+                                <div class="alert alert-danger" role="alert">
+                                    <p class="text-center">Crypto-currency already exist</p>
+                                </div>
+                            </c:if>
+
                         </div>
                     </form>
                 </div>

@@ -2,13 +2,30 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en">
     <c:import url="/WEB-INF/include/head.jsp"/>
-    <script src="/js/manage.js"></script>
 
     <body class="d-flex flex-column h-100">
         <c:import url="/WEB-INF/include/header.jsp"/>
         <div class="container col-6">
             <main>
                 <label for="users"><h4 class="h4 mb-3 fw-normal">All users</h4></label>
+                <c:if test="${param.addAdmin}">
+                    <div class="alert alert-success" role="alert">
+                        <p class="text-center">Admin added</p>
+                    </div>
+                </c:if>
+
+                <c:if test="${param.removedAdmin}">
+                    <div class="alert alert-success" role="alert">
+                        <p class="text-center">Admin removed</p>
+                    </div>
+                </c:if>
+
+                <c:if test="${param.deletedUser}">
+                    <div class="alert alert-success" role="alert">
+                        <p class="text-center">User deleted</p>
+                    </div>
+                </c:if>
+                
                 <c:forEach items="${requestScope.users}" var="user">
                     <c:if test="${user.username != sessionScope.user.username}">
                         <div class="row py-3">

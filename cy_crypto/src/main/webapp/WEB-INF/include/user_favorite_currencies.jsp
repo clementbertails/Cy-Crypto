@@ -15,7 +15,7 @@
                             <c:out value="${currency.name}"/>
                             <form action="/user/home" method="get">
                                 <input type="hidden" id="currency" name="currency" value="${currency.symbol}"/>
-                                <button class="w-100 btn btn-lg btn-info" type="submit" name="showCurrency" id="showCurrency">SHOW</button>
+                                <button class="w-100 btn btn-lg btn-info" type="submit" name="showCurrency" id="showCurrency">Show</button>
                             </form>
                         </c:forEach>
                     </div>
@@ -23,7 +23,24 @@
             </c:if>
 
             <div class="row py-4 text-center">
-                <a href="/user/currencies" class="nav-link px-2 text-white"><button class="w-100 btn btn-lg btn-primary">Redirect to Add Favorite</button></a>
+                <a href="/user/currencies" class="nav-link px-2 text-white"><button class="w-100 btn btn-lg btn-primary">Add Favorite</button></a>
+            </div>
+
+            <div>
+                <c:choose>
+                    <c:when test="${sessionScope.user.favoriteConversion == 'EUR'}">
+                        <form action="/user/favoriteConversion" method="post">
+                            <input type="hidden" id="favoriteConversion" name="favoriteConversion" value="USD"/>
+                            <button class="w-100 btn btn-lg btn-primary" type="submit" name="changeFavoriteConversion" id="changeFavoriteConversion">Convert to USD</button>
+                        </form>
+                    </c:when>
+                    <c:when test="${sessionScope.user.favoriteConversion == 'USD'}">
+                        <form action="/user/favoriteConversion" method="post">
+                            <input type="hidden" id="favoriteConversion" name="favoriteConversion" value="EUR"/>
+                            <button class="w-100 btn btn-lg btn-primary" type="submit" name="changeFavoriteConversion" id="changeFavoriteConversion">Convert to EUR</button>
+                        </form>
+                    </c:when>
+                </c:choose>
             </div>
         </div>
     </div>    

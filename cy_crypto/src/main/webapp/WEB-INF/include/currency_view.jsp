@@ -6,13 +6,13 @@
                 <h5 class="h5 mb-3 fw-normal">No currency found.</h5>
                 <h5 class="h5 mb-3 fw-normal">Please add favorites :</h5>
                 <div class="mx-auto col-4">
-                    <a href="/user/currencies" class="nav-link px-2 text-white"><button class="w-100 btn btn-lg btn-primary">Redirect to Add Favorite</button></a>
+                    <a href="/user/currencies" class="nav-link px-2 text-white"><button class="w-100 btn btn-lg btn-primary">Add Favorite</button></a>
                 </div>
             </div>
         </c:when>
         <c:otherwise>    
             <div class="row py-1 text-center">
-                <h3 class="h3 mb-3 fw-normal">Real time information of <c:out value="${requestScope.currency.symbol}"/>/<c:out value="${sessionScope.user.favoriteConversion}"/></h4>
+                <h4 class="h3 mb-3 fw-normal">Real time information of <c:out value="${requestScope.currency.symbol}"/>/<c:out value="${sessionScope.user.favoriteConversion}"/></h4>
             </div>
 
             <div class="row text-center">
@@ -111,7 +111,7 @@
             </div>
 
             <div class="row py-1 text-center">
-                <h3 class="h3 mb-3 fw-normal">History of <c:out value="${requestScope.currency.symbol}"/></h4>
+                <h4 class="h3 mb-3 fw-normal">History of <c:out value="${requestScope.currency.symbol}"/>/<c:out value="${sessionScope.user.favoriteConversion}"/></h4>
             </div>
 
             <div class="row text-center">
@@ -129,9 +129,10 @@
                     </thead>
                     <tbody>
                         <c:forEach items="${requestScope.currency.history}" var="history">
-                            <c:if test="${history.convertedTo.toString() == sessionScope.user.favoriteConversion.toString()}">
+                            <c:if test="${history.convertedTo == sessionScope.user.favoriteConversion)}">
                                 <tr>
-                                    <td><c:out value="${history.time}"/></td>
+                                    <fmt:formatDate value="${history.time}" var="time" pattern="dd/MM/yyyy"/>
+                                    <td><c:out value="${time}"/></td>
                                     <td><c:out value="${history.high}"/></td>
                                     <td><c:out value="${history.low}"/></td>
                                     <td><c:out value="${history.open}"/></td>

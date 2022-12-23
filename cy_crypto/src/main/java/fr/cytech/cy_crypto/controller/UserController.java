@@ -1,6 +1,8 @@
 package fr.cytech.cy_crypto.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import fr.cytech.cy_crypto.model.ClassicCurrency;
 import fr.cytech.cy_crypto.model.CryptoCurrency;
+import fr.cytech.cy_crypto.model.CurrencyHistory;
 import fr.cytech.cy_crypto.model.Mail;
 import fr.cytech.cy_crypto.model.User;
 import fr.cytech.cy_crypto.services.CurrencyService;
@@ -50,6 +54,15 @@ public class UserController {
             currency = currencyService.find(user.getFavoriteCurrencies().get(0).getSymbol());
         }
         if (currency != null) {
+            Comparator<CurrencyHistory> comparator = new Comparator<CurrencyHistory>() {
+                @Override
+                public int compare(CurrencyHistory o1, CurrencyHistory o2) {
+                    return o2.getTime().compareTo(o1.getTime());
+                }
+            };
+            List<CurrencyHistory> history = currency.getHistory();
+            Collections.sort(history, comparator);
+            currency.setHistory(history);
             model.addAttribute("currency", currency);
         }
         return "user_home";
@@ -239,4 +252,15 @@ public class UserController {
         }
     }
 
+    @PostMapping("/favoriteConversion")
+    public String updateFavoriteConversion(HttpServletRequest request, RedirectAttributes rAttributes, @RequestParam String favoriteConversion) {
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
+            rAttributes.addAttribute("notLogged", true);
+            return "redirect:/signin";
+        }
+        user.setFavoriteConversion(ClassicCurrency.valueOf(favoriteConversion));
+        userService.save(user);
+        return "redirect:/user/home";
+    }
 }
