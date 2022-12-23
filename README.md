@@ -18,9 +18,9 @@ Docker :
 
 1. Clone repository : 
 ```bash
-    git clone https://github.com/clementbertails/Cy-Crypto.git
+git clone https://github.com/clementbertails/Cy-Crypto.git
 ```
 2. Move to the root of the project :
 ```bash
-    cd Cy-Crypto
+cd Cy-Crypto
 ```
